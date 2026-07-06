@@ -1,0 +1,217 @@
+<div class="d-flex flex-column h-100 p-2">
+
+    <!-- buscar chats por el correo del usuario -->
+    <form method="GET" class="input-group mb-3">
+
+        <input type="text"
+               class="form-control"
+               name="buscar"
+               placeholder="Ej: corredorxxx@nuam.com"
+               value="{{ request.GET.buscar|default:'' }}">
+
+        <button class="btn btn-outline-secondary" type="submit">
+            <i class="bi bi-search"></i>
+        </button>
+
+    </form>
+
+    <!-- lista de contactos-->
+    <div class="accordion mb-2" id="acordeonContactos">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#contactosCollapse">
+                    Contactos
+                </button>
+            </h2>
+
+            <div id="contactosCollapse" class="accordion-collapse collapse {% if request.GET.buscar %}show{% endif %}">
+                <div class="accordion-body p-0">
+
+                    <ul class="list-group list-group-flush" id="lista_contactos">
+                        {% for c in contactos %}
+                            <li class="list-group-item p-0 border-0">
+                            
+                                <form method="POST" action="" class="m-0 p-0">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="user_id" value="{{ c.id }}">
+                                
+                                    <button type="submit"
+                                            class="selector-chat w-100 text-start p-3 mb-2 rounded d-block"
+                                            style="
+                                                border: none;
+                                                background-color: #ffffff;
+                                                border-left: 4px solid #fd190d;
+                                                box-shadow:  2px 10px rgba(0, 0, 0, 0.05);
+                                            ">
+                    
+                                        <strong class="d-block" style="color:#234A7D;">
+                                            {{ c.first_name }} {{ c.last_name }}
+                                        </strong>
+                                    
+                                        <span class="d-block" style="color:#7a7a7a; font-size:0.9rem;">
+                                            {{ c.email }}
+                                        </span>
+                                    
+                                    </button>
+                                </form>
+                            
+                            </li>
+                        {% empty %}
+                            <li class="list-group-item text-muted">No existen contactos</li>
+                        {% endfor %}
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- panel de historial de chat solo si existe chat -->
+    {% if destino %}
+    <div id="panelConversacion" class="card shadow-sm d-flex flex-column flex-grow-1" style="overflow:hidden;">
+
+        <!-- correo de cabecera-->
+        <div class="d-flex justify-content-between align-items-center p-2 border-bottom">
+            <strong class="text-center w-100" style="color:#234A7D;">
+                {{ destino.email }}
+            </strong>
+
+            <!-- cerra el chat  -->
+            <button onclick="cerrarChat()" type="button" class="btn btn-sm btn-outline-secondary">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+
+        <!-- historial del chat  -->
+        <div id="historial_chat" class="flex-grow-1 p-2" style="overflow-y:auto; background:#fff;">
+
+            {% for msn in mensajes %}
+            <div class="mb-3">
+
+                <div class="text-center text-muted small mb-1">
+                    {{ msn.fecha_envio|date:"d/m/Y" }}
+                </div>
+
+                <div class="{% if msn.usuario == request.user %}text-end{% endif %}">
+                    <strong>{{ msn.usuario.first_name }}</strong>
+                </div>
+
+                <div class="d-flex {% if msn.usuario == request.user %}justify-content-end{% endif %}">
+                    <div style="
+                        max-width:70%;
+                        background:{% if msn.usuario == request.user %}#E3F0FF{% else %}#F2ECF9{% endif %};
+                        padding:10px;
+                        border-radius:15px;
+                        font-size:14px;">
+                        {{ msn.mensaje }}
+                        <div class="text-end text-muted mt-1" style="font-size:11px;">
+                            {{ msn.fecha_envio|time:"H:i" }}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            {% empty %}
+            <p class="text-muted text-center">Inicia una conversación</p>
+            {% endfor %}
+
+        </div>
+
+        <!-- formulario de envio -->
+        {% if chat %}
+        <form method="POST"
+              action="{% url 'enviar_mensaje_privado' chat.id %}"
+              class="d-flex align-items-center gap-2 p-2 border-top bg-white"
+              style="flex-shrink:0;">
+
+            {% csrf_token %}
+
+            <input type="text" name="mensaje" class="form-control" placeholder="Escribe un mensaje" required>
+
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-send"></i>
+            </button>
+
+        </form>
+        {% endif %}
+
+    </div>
+    {% endif %}
+
+</div>
+
+<script>
+function cerrarChat(){
+    const panel = document.getElementById("panelConversacion");
+    if(panel){
+        panel.remove();  // elimina solo el chat, no el offcanvas
+    }
+}
+</script>
+
+<style>
+#historial_chat { scrollbar-width: thin; }
+#historial_chat::-webkit-scrollbar { width: 6px; }
+#historial_chat::-webkit-scrollbar-thumb {
+    background: #cfd9f0;
+    border-radius: 4px;
+}
+</style>
+
+<!-- permite abrir y cerrar el offcanvas dependiendo si se envia mensaje o se clickea a un contacto -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    {% if abrir_chat %}
+        var off = document.getElementById('chatCanvas'); // o id de tu offcanvas
+        if (off) {
+            try {
+                var bsOff = bootstrap.Offcanvas.getOrCreateInstance(off);
+                bsOff.show();
+            } catch(e) { /* no importa */ }
+        }
+    {% endif %}
+    
+    // Auto-scroll inicial del chat al abrir
+    const chatDiv = document.getElementById("historial_chat");
+    if (chatDiv) {
+        chatDiv.scrollTop = chatDiv.scrollHeight;
+    }
+});
+</script>
+
+{% if destino %}
+<script>
+    // Polling automático para el chat
+    let chatInterval = setInterval(function() {
+        const panel = document.getElementById("panelConversacion");
+        if (!panel) {
+            clearInterval(chatInterval);
+            return;
+        }
+        
+        let fetchUrl = window.location.pathname + "?user_id={{ destino.id }}";
+        fetch(fetchUrl)
+            .then(response => response.text())
+            .then(html => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, "text/html");
+                const newHistorial = doc.getElementById("historial_chat");
+                const currentHistorial = document.getElementById("historial_chat");
+                
+                if (newHistorial && currentHistorial) {
+                    if (currentHistorial.innerHTML !== newHistorial.innerHTML) {
+                        let isScrolledToBottom = currentHistorial.scrollHeight - currentHistorial.clientHeight <= currentHistorial.scrollTop + 10;
+                        currentHistorial.innerHTML = newHistorial.innerHTML;
+                        if (isScrolledToBottom) {
+                            currentHistorial.scrollTop = currentHistorial.scrollHeight;
+                        }
+                    }
+                }
+            })
+            .catch(err => console.error("Error actualizando chat:", err));
+    }, 3000);
+</script>
+{% endif %}

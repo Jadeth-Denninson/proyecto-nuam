@@ -1,0 +1,141 @@
+{% extends "../base.html" %}
+{% load static %}
+
+{% block title %}Gestión de Calificaciones Tributarias{% endblock title %}
+
+{% block content %}
+<div class="container-fluid mt-5 mb-5 px-5">
+    <form method="POST" class="p-3 rounded shadow-sm bg-light mb-4">
+        {% csrf_token %}
+        <div class="row mb-3 align-items-center">
+            <div class="col-md-2">
+                <label class="form-label">InstrumentoID</label>
+                <input type="text" class="form-control" name="instrumento_id" placeholder="XXXXXXX">
+            </div>
+
+            <div class="col-md-2">
+                <label class="form-label">Código</label>
+                <input type="text" class="form-control" name="codigo" placeholder="Código...">
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label">Categoría</label>
+                <select class="form-select" name="categoria">
+                    <option value="">Seleccione...</option>
+                    <option>Efectivo y Depósitos</option>
+                    <option>Títulos de Deuda (Renta Fija)</option>
+                    <option>Acciones y Participaciones</option>
+                    <option>Derivados Financieros</option>
+                    <option>Préstamos</option>
+                    <option>Otras Cuentas-Derechos</option>
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <label class="form-label">Bolsa</label>
+                <select class="form-select" name="bolsa">
+                    <option value="">Seleccione...</option>
+                    <option>BCS</option>
+                    <option>BVC</option>
+                    <option>BVL</option>
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <label class="form-label">Mercado</label>
+                <select class="form-select" name="mercado">
+                    <option value="">Seleccione...</option>
+                    <option>Acciones</option>
+                    <option>Renta Fija</option>
+                    <option>Derivados Financieros</option>
+                    <option>Fondos de Inversión-Mutuos</option>
+                    <option>Instrumentos del Banco Central</option>
+                    <option>Instrumentos del Estado-Tesorería</option>
+                    <option>Mercado Monetario</option>
+                    <option>Mercado Internacional</option>
+                    <option>Mercado Bancario-Créditos</option>
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <label class="form-label">Estado</label>
+                <select class="form-select" name="estado">
+                    <option value="">Seleccione...</option>
+                    <option>Ingresado</option>
+                    <option>Validado</option>
+                    <option>Rechazado</option>
+                </select>
+            </div>
+
+            <div class="col-md-1 d-flex flex-column gap-2">
+                <button type="submit" name="buscar" class="btn btn-sm btn-primary mt-3" style="width:80px; height:32px; font-size:0.8rem; text-align: center; line-height: 20px !important; background-color: #ff4201 !important;">BUSCAR</button>
+                <button type="reset" class="btn btn-sm btn-primary" style="width:80px; height:32px; font-size:0.8rem; text-align: center; line-height: 25px !important; background-color: #ff4201 !important;">LIMPIAR</button>
+            </div>
+        </div>
+    </form>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle text-center">
+                <thead class="table-primary text-white" style="background-color: var(--nuam-primary);">
+                    <tr>
+                        <!--<th scope="col"><input type="checkbox" instrumento_id="selectAll"></th>-->
+                        <th scope="col">ID</th>
+                        <th scope="col">Código</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Categoría</th>
+                        <th scope="col">Bolsa</th>
+                        <th scope="col">Mercado</th>
+                        <th scope="col">Estado</th>
+                        <th></th>
+                        <th></th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in instrumentos %}
+                    <div class="modal fade" id="Modal_{{i.instrumento_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar Instrumento #{{i.instrumento_id}}</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            Está a punto de eliminar el instrumento {{i.instrumento_id}}
+                            ¿Está Seguro?
+                          </div>
+                          <div class="modal-footer">
+                            <a href="http://127.0.0.1:8000/gestores/instrumentos/eliminar/{{ i.instrumento_id }}"><button type="button" class="btn btn-danger">Eliminar</button></a>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <tr>
+                        <!--<td><input type="checkbox" name="seleccionados" value="{{ i.instrumento_id }}"></td>-->
+                        <td>{{ i.instrumento_id }}</td>
+                        <td>{{ i.codigo }}</td>
+                        <td>{{ i.descripcion }}</td>
+                        <td>{{ i.categoria }}</td>
+                        <td>{{ i.bolsa }}</td>
+                        <td>{{ i.mercado }}</td>
+                        <td>{{ i.estado }}</td>
+                        <td><a href="{% url 'actualizar_instrumento' i.instrumento_id %}" class="btn btn-success btn-sm"><i class="bi bi-pencil"></i></a></td>
+                        <td><a href="{% url 'eliminar_instrumento' i.instrumento_id %}" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#Modal_{{i.instrumento_id}}"><i class="bi bi-trash"></i></a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="d-flex justify-content-end mt-3 gap-3">
+            <!--<button type="submit" name="ingresar" class="btn btn-success" style="background-color: var(--nuam-primary); border: none;">INGRESAR</button>-->
+            <!--<a href="../Creates/instrumentos.html" class="btn btn-sm btn-primary">Agregar Instrumento</a>-->
+            <a href="{% url 'agregar_instrumento' %}" class="btn btn-primary justify-content-end" style="width:180px; height:40px; font-size:0.8rem; text-align: center; line-height: 25px !important; background-color: #ff4201 !important;">AGREGAR INSTRUMENTO</a>
+            <a href="{% url 'intranet' %}" class="btn btn-secondary justify-content-end" style="width:100px; height:40px; font-size:0.8rem; text-align: center; line-height: 25px !important; background-color: gray !important;">VOLVER</a>
+        </div>
+    </form>
+</div>   
+{% endblock content %}

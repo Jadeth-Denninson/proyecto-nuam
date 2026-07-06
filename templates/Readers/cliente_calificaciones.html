@@ -1,0 +1,59 @@
+{% extends "../base.html" %}
+{% load static %}
+
+{% block title %}Mis Calificaciones Tributarias{% endblock title %}
+
+{% block content %}
+<div class="container mt-4 text-white">
+  <h3 class="font-title mb-4">Mis Calificaciones Tributarias</h3>
+
+  <div class="table-responsive">
+  <table class="table table-hover">
+    <thead class="table-primary">
+      <tr>
+        <th>Ejercicio</th>
+        <th>Mercado</th>
+        <th>Instrumento</th>
+        <th>Fecha Pago</th>
+        <th>Descripción</th>
+        <th>Estado</th>
+      
+        {% for f in factores %}
+          <th class="th-cut" data-bs-toggle="tooltip" data-bs-placement="bottom" title="F.{{ f.factor_id }} — {{f.nombre_factor}}">
+              F.{{ f.factor_id }}
+          </th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% if calificaciones %}
+      {% for cal in calificaciones %}
+      <tr>
+        <td>{{ cal.obj.anio }}</td>
+        <td>{{ cal.obj.mercado }}</td>
+        <td>{{ cal.obj.instrumento.descripcion }}</td>
+        <td>{{ cal.obj.fecha_pago }}</td>
+        <td>{{ cal.obj.descripcion }}</td>
+        <td>{{ cal.obj.estado }}</td>
+        {% for v in cal.valores %}
+          <td class="text-center">
+            {{ v }}
+          </td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+      {% else %}
+          <tr>
+            <td colspan="50" class="text-start">No tienes calificaciones asignadas.</td>
+          </tr>
+      {% endif %}
+    </tbody>
+  </table>
+  </div>
+
+  <div class="gap-2 my-3">
+    <a href="{% url 'cliente_dashboard' %}"><button class="btn btn btn-secondary mt-3 float-end">Volver</button></a>
+  </div>
+  
+</div>
+{% endblock content %}

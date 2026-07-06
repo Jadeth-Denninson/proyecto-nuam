@@ -1,0 +1,84 @@
+{% extends "../base.html" %}
+{% load static %}
+
+
+{% block title %}Agregar Instrumento Financiero{% endblock title %}
+
+{% block content %}
+<div class="container-fluid mt-5 mb-5 px-5">
+    <form method="POST" class="p-3 rounded shadow-sm bg-light mb-4">
+        {% csrf_token %}
+        <div class="row mb-3 align-items-center">
+
+
+            <div class="col-md-3">
+                <label class="form-label">Código</label>
+                {{ form.codigo }}
+                <!--<input type="text" class="form-control" name="codigo" placeholder="Código...">-->
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label">Categoría</label>
+                {{ form.categoria }}
+                <!--<select class="form-select" name="categoria">
+                    <option value="">Seleccione...</option>
+                    <option>ACCIONES</option>
+                    <option>BONOS</option>
+                    <option>DERIVADOS</option>
+                    <option>FONDOS MUTUOS</option>
+                </select>-->
+            </div>
+
+
+            <div class="col-md-3">
+                <label class="form-label">Bolsa</label>
+                {{ form.bolsa }}
+                <!--<select class="form-select" name="bolsa">
+                    <option value="">Seleccione...</option>
+                    <option>BCS</option>
+                    <option>BVC</option>
+                    <option>BVL</option>
+                </select>-->
+            </div>
+
+
+            <div class="col-md-3">
+                <label class="form-label">Mercado</label>
+                {{ form.mercado }}
+                <!--<select class="form-select" name="mercado">
+                    <option value="">Seleccione...</option>
+                    <option>Chile</option>
+                    <option>Perú</option>
+                    <option>Colombia</option>
+                </select>-->
+            </div>
+
+            <div class="col-md-5 mt-3">
+                <label class="form-label">Descripción</label>
+                {{ form.descripcion }}
+                <!--<input type="text" class="form-control" name="descripcion" placeholder="Descripción...">-->
+            </div>
+
+
+            <!--<div class="col-md-2">
+                <label class="form-label">Estado</label>
+                <select class="form-select" name="estado">
+                    <option value="">Seleccione...</option>
+                    <option>Ingresado</option>
+                    <option>Validado</option>
+                    <option>Rechazado</option>
+                </select>
+            </div>-->
+
+
+            <div class="col-md-2 me-5 mt-4 d-flex ms-auto justify-content-end">
+                <button type="submit" class="btn btn-sm btn-primary mt-3 col-md-9" style="width:200px; height:60px; font-size:0.8rem; text-align: center; line-height: 25px !important; background-color: #ff4201 !important;">AGREGAR INSTRUMENTO</button>
+            </div>
+        </div>
+    </form>
+    <div class= " me-5 d-flex ms-auto justify-content-end">
+        <a href= {% url 'ver_instrumentos' %} class="btn btn-sm btn-primary" style="width:200px; height:35px; font-size:0.8rem; text-align: center; line-height: 25px !important; background-color: #ff4201 !important;">VISUALIZAR INSTRUMENTOS</a>
+    </div>
+
+
+{% endblock content %}

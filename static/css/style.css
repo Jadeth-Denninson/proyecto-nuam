@@ -1,0 +1,603 @@
+:root{
+  --bs-primary:#ff4201;
+  --bs-primary-rgb: rgb(255, 66, 1);
+  --font-title: 'Times New Roman', Times, serif;
+  --nuam-primary:#ff4201;
+  --nuam-bg-light: #fffbfa;
+  --nuam-bg-light2: #f7f7f7;
+  --nuam-bg-dark: #3d3d3d;
+  --nuam-bg-black: #030303;
+  --nuam-bg-red: #a70606;
+  --nuam-bg-light-orange: #ffc642;
+
+}
+
+.dark-bg-overlay {
+  background-color: #0000005a;
+}
+
+.font-title {
+  font-family: var(--font-title);
+}
+
+.table-primary{
+  --bs-table-accent-bg: var(--nuam-primary);
+  font-size: small;
+}
+
+.table-primary th {
+  font-size: small;
+}
+
+.table-hover td {
+  background-color: var(--nuam-bg-light2);
+  font-size: small; 
+}
+
+.bg-nuam-nav {
+  background-color: var(--nuam-bg-light);
+  min-height: 80px;
+}
+
+.card-login {
+  border-radius: 20px;
+  min-height: 450px;
+  max-width: 400px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo-img {
+  margin-right: 15px;
+  height: 40px;
+  width: 100px;
+  margin-bottom: 10px;
+}
+
+.market-info {
+  font-size: 0.6em;
+  color: #22be22;
+  line-height: 1.2;
+}
+
+.profile-icon {
+  margin-left: auto;
+  font-size: 2.1em;
+  color: black;
+  cursor: pointer;
+}
+
+.admin-container {
+  display: flex;
+  gap: 50px;
+  padding: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.admin-layout, .broker-layout, .auditor-layout {
+  display: flex;
+  gap: 50px;
+  padding: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.profile-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 280px;
+  height: 240px;
+  background-color: var(--nuam-bg-light2);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  margin-top: 50px;
+}
+
+.profile-icon1 {
+  font-size: 2.5em;
+  color: black;
+  margin-bottom: 10px;
+}
+
+.profile-icon2 {
+  font-size: 5.0em;
+  color: black;
+  margin-bottom: 10px;
+}
+
+.profile-info {
+  text-align: center;
+}
+
+.profile-label {
+  font-weight: bold;
+  font-size: 1.1em;
+  margin-bottom: 5px;
+}
+
+.profile-email {
+  font-size: 0.95em;
+  color: var(--nuam-bg-dark);
+}
+
+.admin-column, .broker-column, .auditor-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 50px;
+}
+
+.admin-btn {
+  width: 300px;
+  background-color: var(--nuam-primary);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 1em;
+  cursor: pointer;
+  text-align: left;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.sub-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sub-btn {
+  width: 260px;
+  background-color: var(--nuam-primary);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 1em;
+  cursor: pointer;
+  text-align: left;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--nuam-bg-light-orange);
+  color: black;
+  font-size: 0.9em;
+  margin-bottom: 15px;
+}
+
+.broker-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+}
+
+.carousel,
+.carousel-inner,
+.carousel-item,
+.carousel-item img {
+  height: 100vh; 
+}
+
+.carousel-item img {
+  transition: transform 1.2s ease-in-out, opacity 1.2s ease-in-out;
+  object-fit: fill;     
+  object-position: center; 
+  width: 100%;
+}
+
+
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; 
+}
+
+.factor-label {
+  font-size: 0.75rem;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.th-cut {
+    max-width: 250px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: help;
+}
+
+.th-tooltip {
+  --bs-tooltip-font-size: 0.1rem;
+}
+
+.wizard-container {
+  max-height: 575px;
+}
+
+#wizard .carousel-item {
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 500px;
+}
+
+
+/* --- Ajuste base del fade --- */
+#wizard.carousel-fade .carousel-item {
+  opacity: 0;
+  transition: opacity .6s ease-in-out;
+  z-index: 0;
+}
+
+/* --- Slide activo (fully visible) --- */
+#wizard.carousel-fade .carousel-item.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+/* --- Slide que entra (fade in) --- */
+#wizard.carousel-fade .carousel-item-next.carousel-item-start,
+#wizard.carousel-fade .carousel-item-prev.carousel-item-end {
+  opacity: 1;
+  z-index: 2;
+}
+
+/* --- Slide que sale (fade out) --- */
+#wizard.carousel-fade .carousel-item.active.carousel-item-start,
+#wizard.carousel-fade .carousel-item.active.carousel-item-end {
+  opacity: 0;
+  z-index: 0;
+}
+
+/* Deshabilita cualquier movimiento */
+#wizard.carousel-fade .carousel-item-next,
+#wizard.carousel-fade .carousel-item-prev,
+#wizard.carousel-fade .carousel-item.active {
+  transform: none !important;
+}
+
+.navbar .nav-item {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.notif-panel {
+    width: 500px;
+    max-height: 400px;
+    overflow-y: auto;
+    border-radius: 0.5rem;
+    padding: 10px;
+}
+
+.notif-container {
+    position: relative;
+}
+
+.notif-btn {
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+}
+
+.notif-count {
+    background: red;
+    color: white;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 50%;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+}
+
+.notif-dropdown {
+    position: absolute;
+    right: 0;
+    top: 40px;
+    width: 650px;
+    max-height: 400px;
+    overflow-y: auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 9999;
+    padding: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+.notif-item {
+    display: block;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-decoration: none;
+    color: black;
+}
+
+.notif-item:hover {
+    background: #f2f2f2;
+}
+
+.no-leido {
+    background: #000000;
+    border-left: 4px solid #ff0000;
+}
+
+.notif-empty {
+    text-align: center;
+    padding: 20px;
+    color: #777;
+}
+
+.notif-item-container button {
+    font-size: 1.2rem;
+    line-height: 1;
+    padding: 0 5px;
+}
+
+/* Overlay para bloquear el fondo cuando el panel está abierto */
+.notif-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.5);
+    z-index: -1; 
+}
+
+/* Mostrar overlay cuando se activa */
+.notif-overlay.show {
+    display: block;
+}
+
+/* Panel de notificaciones */
+.notif-panel {
+    position: fixed;
+    top: 60px;          
+    right: 20px;        
+    width: 400px;       
+    max-height: 400px;  
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    opacity: 0.85;
+    overflow-y: auto;
+    padding: 10px;
+    z-index: 999;      
+    display: none;      
+}
+
+/* Mostrar panel */
+.notif-panel.show {
+    display: block;
+}
+
+/* Contenedor de cada notificación con botón */
+.notif-item-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+/* Notificación clickeable */
+.notif-item {
+    flex-grow: 1;
+    text-decoration: none;
+    color: inherit;
+    padding: 5px;
+}
+
+/* Notificación no leída */
+.no-leido {
+    background-color: #e8f0ff;
+    border-left: 4px solid #3a6df0;
+}
+
+/* Hover en notificación */
+.notif-item:hover {
+    background-color: #f2f2f2;
+}
+
+/* Botón de eliminar */
+.notif-item-container button {
+    font-size: 1.2rem;
+    line-height: 1;
+    padding: 0 5px;
+    border: none;
+    background: none;
+    color: red;
+    cursor: pointer;
+}
+
+/* Texto de notificación vacía */
+.notif-empty {
+    text-align: center;
+    padding: 20px;
+    color: #777;
+}
+
+.dot-hidden {
+    display:none !important;
+}
+
+.dot-visible {
+    display:inline-block !important;
+}
+
+.carrusel-chico {
+    max-width: 1500px;
+    max-height: 300px;
+    margin: 0 auto;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+}
+
+.carrusel-chico img {
+    height: 300px;
+    object-fit:cover;
+}
+
+body {
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.bg-nuam-nav {
+    background-color: #000 !important;
+    opacity: 0.7;
+}
+
+.bg-nuam-nav .navbar-brand,
+.bg-nuam-nav .nav-item a,
+.bg-nuam-nav .nav-item i,
+.bg-nuam-nav span {
+    color: #fff !important;
+}
+
+.btn-nuam,
+.admin-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;                    
+    width: 340px;
+    max-width: 340px;
+    height: 55px;          
+    padding: 0 20px;
+
+    background: #ff4201 !important;
+    color: white !important;
+    border: none;
+    border-radius: 10px;
+
+    font-size: 1rem;
+    font-weight: 600;
+
+    text-align: center;
+    text-decoration: none;
+
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    transition: 
+        transform 0.12s ease,
+        box-shadow 0.12s ease,
+        filter 0.12s ease;
+}
+
+.btn-nuam:hover,
+.admin-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 22px rgba(0,0,0,0.20);
+    filter: brightness(1.15);
+}
+
+.btn-nuam:active,
+.admin-btn:active {
+    transform: translateY(2px) scale(0.97);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+    filter: brightness(0.85);
+}
+
+.dropdown-menu a {
+    padding: 10px 18px;
+    font-size: 0.95rem;
+}
+
+.btn-nuam i,
+.admin-btn i {
+    font-size: 1.1rem;
+}
+
+#offcanvasRight {
+    background: rgba(0, 0, 0, 0.85) !important;
+    color: white !important;
+}
+
+#offcanvasRight * {
+    color: white !important;
+}
+
+#offcanvasRight .btn-close {
+    filter: invert(1);
+}
+
+#offcanvasRight .card {
+    background: transparent !important;
+    border: none !important;
+}
+
+.btn-eliminar {
+    background-color: red !important;
+    color: white !important;
+}
+
+.btn-cancelar {
+    background-color: grey !important;
+    color: white !important;
+}
+
+/* contenedor principal */
+.hero-wrapper {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* carrusel como fondo */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.hero-bg img {
+  height: 100vh;
+  object-fit: cover;
+}
+
+/* overlay oscuro opcional */
+.hero-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: 2;
+}
+
+/* contenido encima */
+.hero-content {
+  position: relative;
+  z-index: 3;
+  padding-top: 30px; /* navbar + aire */
+  padding-bottom: 4rem;
+}
+
+.modal-backdrop {
+  z-index: 2 !important;
+}
+
+.modal {
+  z-index: 4 !important;
+}

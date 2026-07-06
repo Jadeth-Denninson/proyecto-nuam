@@ -1,0 +1,128 @@
+{% extends "../base.html" %}
+{% load static %}
+
+{% block title %}Gestión de Calificaciones Tributarias{% endblock title %}
+
+{% block dependencies %}
+  <script src="{% static 'js/ver_calificaciones.js' %}"></script>
+{% endblock dependencies %}
+
+{% block content %}
+<div class="container mt-4 text-white">
+  <h3 class="font-title mb-4">Calificaciones Tributarias</h3>
+
+  <form method="GET" class="row g-3 mb-4">
+    <div class="col-md-3">
+      <label for="mercado" class="form-label">Mercado</label>
+      <select class="form-select" name="mercado" id="mercado">
+      <option value="">Seleccione...</option>
+      <option value="ACCIONES">Acciones</option>
+      <option value="RENTA FIJA">Renta Fija</option>
+      <option value="DERIVADOS FINANCIEROS">Derivados Financieros</option>
+      <option value="FONDOS DE INVERSIÓN-MUTUOS">Fondos de Inversión-Mutuos</option>
+      <option value="INSTRUMENTOS DEL BANCO CENTRAL">Instrumentos del Banco Central</option>
+      <option value="INSTRUMENTOS DEL ESTADO-TESORERÍA">Instrumentos del Estado-Tesorería</option>
+      <option value="MERCADO MONETARIO">Mercado Monetario</option>
+      <option value="MERCADO INTERNACIONAL">Mercado Internacional</option>
+      <option value="MERCADO BANCARIO-CRÉDITOS">Mercado Bancario-Créditos</option>
+    </select>
+    </div>
+
+    <div class="col-md-3">
+      <label for="origen" class="form-label">Origen</label>
+      <select class="form-select" name="origen" id="origen">
+        <option value="">Seleccione...</option>
+        <option value="SISTEMA">Sistema</option>
+        <option value="CORREDOR">Corredor</option>
+        <option value="BOLSA">Bolsa</option>
+      </select>
+    </div>
+
+    <div class="col-md-3">
+      <label for="anio" class="form-label">Periodo Comercial</label>
+      <input type="number" class="form-control" name="anio" id="anio" min="1900" max="2100" placeholder="Ej: 2025">
+    </div>
+
+    <div class="col-md-3 d-flex align-items-end">
+      <div class="col-md-12 d-flex gap-2">
+        <button type="submit" class="btn btn-primary" style="width:100px; height:40px; font-size:0.8rem; text-align: center; line-height: 25px !important; background-color: #ff4201 !important;">BUSCAR</button>
+        <button type="reset" class="btn btn-primary" style="width:100px; height:40px; font-size:0.8rem; text-align: center; line-height: 25px !important; background-color: #ff4201 !important;">LIMPIAR</button>
+      </div>
+    </div>
+  </form>
+
+  <div class="table-responsive">
+  <table class="table table-hover">
+    <thead class="table-primary">
+      <tr>
+        <th></th>
+        <th>Ejercicio</th>
+        <th>Mercado</th>
+        <th>Instrumento</th>
+        <th>Fecha Pago</th>
+        <th>Descripción</th>
+        <th>Secuencia Evento</th>
+        <th>Dividendo</th>
+        <th>Valor Histórico</th>
+        <th>Estado</th>
+        <th>Origen</th>
+      
+        {% for f in factores %}
+          <th class="th-cut" data-bs-toggle="tooltip" data-bs-placement="bottom" title="F.{{ f.factor_id }} — {{f.nombre_factor}}">
+              F.{{ f.factor_id }} — {{f.nombre_factor}}
+          </th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% if calificaciones %}
+      {% for cal in calificaciones %}
+      <tr>
+        <td><input type="radio" name="seleccion" value="{{ cal.obj.secuencia_evento }}"></td>
+        <td>{{ cal.obj.anio }}</td>
+        <td>{{ cal.obj.mercado }}</td>
+        <td>{{ cal.obj.instrumento.descripcion }}</td>
+        <td>{{ cal.obj.fecha_pago }}</td>
+        <td>{{ cal.obj.descripcion }}</td>
+        <td>{{ cal.obj.secuencia_evento }}</td>
+        <td>{{ cal.obj.dividendo }}</td>
+        <td>{{ cal.obj.valor_historico }}</td>
+        <td>{{ cal.obj.estado }}</td>
+        <td>{{ cal.obj.origen_calificacion }}</td>
+        {% for v in cal.valores %}
+          <td class="text-center">
+            {{ v }}
+          </td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+      {% else %}
+          <tr>
+            <td colspan="50" class="text-start">No existen registros</td>
+          </tr>
+      {% endif %}
+    </tbody>
+  </table>
+  </div>
+
+  <div class="gap-2 my-3">
+    <a href="{% url 'crear_calificacion' %}"><button class="btn btn-primary"><i class="bi bi-plus-circle" style="width:100px; height:38px; font-size:0.8rem; text-align: center; line-height: 25px !important; background-color: #ff4201 !important;"></i> INGRESAR</button></a>
+    <button type="button" class="btn btn-sm btn-primary" onclick="editarSeleccionado()">
+      <i class="bi bi-pencil-square" style="width:100px; height:40px; font-size:0.8rem; text-align: center; line-height: 25px !important; background-color: #ff4201 !important;"></i> MODIFICAR
+    </button>
+
+    <button type="button" class="btn btn-sm btn-primary" onclick="eliminarSeleccionado()">
+      <i class="bi bi-trash" style="width:100px; height:40px; font-size:0.8rem; text-align: center; line-height: 25px !important; background-color: #ff4201 !important;"></i> ELIMINAR
+    </button>
+
+    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="width:140px; height:40px; font-size:0.8rem; text-align: center; line-height: 25px !important; background-color: gray !important;">CARGAR ARCHIVO</button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="{% url 'carga_monto' %}">Cargar por monto</a></li>
+      <li><a class="dropdown-item" href="{% url 'carga_factor' %}">Cargar por factor</a></li>
+      
+    </ul>
+    <a href="{% url 'intranet' %}"><button class="btn btn btn-secondary mt-3 float-end" style="width:100px; height:40px; font-size:0.8rem; text-align: center; line-height: 25px !important; background-color: gray !important;">VOLVER</button></a>
+  </div>
+  
+</div>
+{% endblock content %}

@@ -1,0 +1,42 @@
+{% extends "../base.html" %}
+{% load static %}
+
+{% block title %}Crear Solicitud{% endblock title %}
+
+{% block content %}
+<div class="container mt-4">
+
+    <h3 class="font-title mb-4 text-white">Crear nueva solicitud</h3>
+
+    <form method="POST" class="row g-3 mb-4">
+    {% csrf_token %}
+
+    <div class="col-md-4 text-white">
+        {{ form.usuario_display.label_tag }}
+        {{ form.usuario_display }}
+    </div>
+
+    <div class="col-md-4">
+        <label for="group" class="text-white">Enviar a:</label>
+        <select name="group" id="group" class="form-control text-white bg-dark border-secondary" required>
+            {% for g in grupos %}
+                <option value="{{ g.id }}">{{ g.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="form-group text-white">
+        {{ form.motivo.label_tag }}
+        {{ form.motivo }}
+    </div>
+
+    <div class="col-md-12 d-flex justify-content-end gap-2 mt-3">
+        <a href="{% url 'gestion_solicitudes' %}" class="admin-btn" style="width:80px; height:40px; font-size:0.8rem; text-align: center; line-height: 25px !important; background-color: gray !important;">VOLVER</a>
+        <button type="submit" class="admin-btn" style="width:110px; height:40px; font-size:0.8rem; text-align: center; line-height: 25px !important; background-color: #ff4201 !important;">
+            <i class="bi bi-save"></i> GUARDAR
+        </button>
+    </div>
+
+</form>
+</div>
+{% endblock content %}

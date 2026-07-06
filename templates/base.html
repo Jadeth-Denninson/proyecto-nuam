@@ -1,0 +1,228 @@
+{% load static %}
+{% load contactos %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://unpkg.com/@popperjs/core@2"></script>
+  <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="{% static 'css/bootstrap.css'%}">
+  <link rel="stylesheet" href="{% static 'css/_variables.scss'%}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  {% block dependencies %}
+  {% endblock dependencies %}
+  <title>nuam | {% block title%}{% endblock title %}</title>
+</head>
+<script>
+  function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+              const cookie = cookies[i].trim();
+              if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+  }
+  
+  document.body.addEventListener('htmx:configRequest', (event) => {
+      const hiddenInput = document.querySelector('input[name="csrfmiddlewaretoken"]');
+      const tokenFromInput = hiddenInput ? hiddenInput.value : null;
+      const token = tokenFromInput || getCookie('csrftoken');
+  
+      if (token) {
+          event.detail.headers['X-CSRFToken'] = token;
+      } else {
+          console.warn('CSRF token not found (no cookie and no hidden input).');
+      }
+  });
+</script>
+<body>
+
+  <header>
+    {% block navbar %}
+    <form style="display:none;">
+        {% csrf_token %}
+    </form>
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasRightLabel">Menú</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <div class="card p-4">
+        <div class="text-center">
+            <i class="bi bi-person-circle" style="font-size: 4rem;"></i>
+        </div>
+        <div class="profile-info">
+            <p class="profile-label">{{ user.first_name}} {{user.last_name}}</p>
+            <p class="profile-email">{{ user.email }}</p>
+
+            <a href="{% url 'logout' %}" class="admin-btn" style="display:inline-block !important; padding:4px 4px !important; font-size:1rem !important; line-height:1 !important; height:auto !important; min-height:0 !important; box-sizing:border-box !important; vertical-align:middle !important;">Cerrar sesión</a>
+        </div>
+    </div>
+    </div>
+      </div>
+    </div>
+
+    <!--    modificación  se agrega contenido al offcanvas -->
+    {% obtener_contactos as contactos %}
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="chatCanvas" aria-labelledby="chatCanvasLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="chatCanvasLabel">Conversaciones</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+      </div>
+      <div class="offcanvas-body p-0">
+        {% include "panel_chat.html" %}
+      </div>
+    </div>
+
+    <nav class="navbar bg-nuam-nav border-bottom z-2">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'intranet'%}">
+            <div class="row">
+                <div class="col-lg-4">
+                    <img src="{% static 'img/logo.png' %}" alt="Logo" width="117" height="27"> |
+                </div>
+                {% block navbar_title %}
+                <div class="ms-5 mt-1 col-lg-2 market-info">
+                    <span class="mt-4">
+                        MSCI NUAM USD
+                        </br>
+                        1.371 0.71% ▲
+                    </span>
+                </div>
+                {% endblock navbar_title %}
+            </div>
+        </a>
+        <ul class="navbar-nav ms-auto flex-row align-items-center" style="gap:20px;">
+          <li class="nav-item mx-2">
+            <a href="{% url 'intranet' %}" title="Volver al inicio">
+                <i class="bi bi-house" style="font-size: 1.5rem;"></i>
+            </a>
+          </li>
+          <li class="nav-item mx-2">
+            <a href="#" data-bs-toggle="offcanvas" data-bs-target="#chatCanvas" aria-controls="chatCanvas">
+                <div class="">
+                    <i class="bi bi-chat" style="font-size: 1.5rem;"></i>
+                </div>
+            </a>
+          </li>
+          <li class="nav-item mx-2" style="position: relative;">
+            <a href="javascript:void(0);" onclick="toggleNotiPanel()">
+                <i class="bi bi-bell" style="font-size: 1.5rem;"></i>
+            </a>
+
+            <span id="contador-noti"
+                hx-get="{% url 'actualizar_contador' %}"
+                hx-trigger="load"
+                hx-swap="outerHTML">
+            </span>
+          </li>
+        
+          <li class="nav-item mx-2">
+            <a href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+              <i class="bi bi-person-circle" style="font-size:2rem;"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div id="notif-panel" class="notif-panel">
+      <h5>Notificaciones</h5>
+
+      <div class="notif-list">
+        {% for n in request.user.notification_set.all|dictsortreversed:"fecha" %}
+            {% include "Readers/notificaciones.html" %}
+        {% empty %}
+          <p class="notif-empty">No hay notificaciones</p>
+        {% endfor %}
+      </div>
+    </div>
+    {% endblock navbar %}
+  </header>
+
+
+<div class="hero-wrapper">
+
+  {% block carrusel %}
+  <div class="hero-bg position-fixed">
+    <div id="carouselExampleAutoplaying"
+         class="carousel slide carousel-fade"
+         data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="{% static 'img/carrusel1.jpg' %}" class="d-block w-100" alt="">
+        </div>
+        <div class="carousel-item">
+          <img src="{% static 'img/carrusel2.jpg' %}" class="d-block w-100" alt="">
+        </div>
+        <div class="carousel-item">
+          <img src="{% static 'img/carrusel3.jpg' %}" class="d-block w-100" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock carrusel %}
+
+  <main class="hero-content">
+    <div class="container">
+      {% block content %}{% endblock content %}
+    </div>
+  </main>
+
+</div>
+
+  </div>
+  <script>
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    document.body.addEventListener('htmx:configRequest', (event) => {
+        const hiddenInput = document.querySelector('input[name="csrfmiddlewaretoken"]');
+        const tokenFromInput = hiddenInput ? hiddenInput.value : null;
+        const token = tokenFromInput || getCookie('csrftoken');
+
+        if (token) {
+            event.detail.headers['X-CSRFToken'] = token;
+        } else {
+            console.warn('CSRF token not found.');
+        }
+    });
+  </script>
+
+  <script>
+    function toggleNotiPanel() {
+        const panel = document.getElementById("notif-panel");
+        panel.classList.toggle("show");
+
+        htmx.trigger("#contador-noti", "load");
+    }
+  </script>
+</body>
+
+</html>

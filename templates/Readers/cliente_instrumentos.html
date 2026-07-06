@@ -1,0 +1,44 @@
+{% extends "../base.html" %}
+{% load static %}
+
+{% block title %}Instrumentos Financieros{% endblock title %}
+
+{% block content %}
+<div class="container mt-4 text-white">
+  <h3 class="font-title mb-4">Instrumentos Financieros Disponibles</h3>
+
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead class="table-primary">
+        <tr>
+          <th>ID</th>
+          <th>Código</th>
+          <th>Descripción</th>
+          <th>Categoría</th>
+          <th>Bolsa</th>
+          <th>Mercado</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if instrumentos %}
+        {% for inst in instrumentos %}
+        <tr>
+          <td>{{ inst.instrumento_id }}</td>
+          <td>{{ inst.codigo }}</td>
+          <td>{{ inst.descripcion }}</td>
+          <td>{{ inst.categoria }}</td>
+          <td>{{ inst.bolsa }}</td>
+          <td>{{ inst.mercado }}</td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+          <td colspan="6" class="text-start">No existen instrumentos financieros en el sistema.</td>
+        </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+  <a href="{% url 'cliente_dashboard' %}"><button class="btn btn btn-secondary mt-3 float-end">Volver</button></a>
+</div>
+{% endblock content %}

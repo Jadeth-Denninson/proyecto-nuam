@@ -1,0 +1,25 @@
+<div class="notif-item-container" 
+     style="display:flex; align-items:center; justify-content:space-between;">
+
+    <a 
+       hx-get="{% url 'marcar_leida' n.id %}"
+       hx-target="closest .notif-item-container"
+       hx-swap="outerHTML"
+       class="notif-item {% if not n.leida %}no-leido{% endif %}"
+       style="flex-grow:1; text-decoration:none; color:inherit; cursor:pointer;">
+        
+        <p>{{ n.mensaje }}</p>
+        <small>{{ n.fecha|date:"d/m/Y H:i" }}</small>
+
+    </a>
+
+    <button
+        hx-post="{% url 'eliminar_notificacion' n.id %}"
+        hx-get="{% url 'actualizar_contador' %}"
+        hx-target="closest .notif-item-container, #notifDot"
+        hx-swap="outerHTML"
+        onclick="event.stopPropagation()"
+        style="border:none; background:none; font-size:20px; cursor:pointer;">
+        &times;
+    </button>
+</div>

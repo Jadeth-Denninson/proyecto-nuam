@@ -1,0 +1,40 @@
+{% extends "../base.html" %} 
+{% load static %} 
+
+{% block title %}Registro de Auditoría{% endblock title %} 
+
+{% block navbar_title %} 
+<div class="col"> 
+  <span class="fs-4 text-black"> Registro de Auditoría </h5>
+</div> 
+{% endblock navbar_title %}
+
+{% block content %}
+<div class="container mt-4 text-white">
+  <h3 class="font-title mb-4">Registro de Auditoría</h3>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead class="table-primary">
+        <tr>
+          <th>Fecha</th>
+          <th>Usuario</th>
+          <th>Tabla</th>
+          <th>ID</th>
+          <th>Acción</th>
+          <th>Descripción</th>
+        </tr>
+      </thead>
+      <tbody> {% if auditorias %} {% for item in auditorias %} <tr>
+          <td>{{ item.fecha }}</td>
+          <td>{{ item.usuario }}</td>
+          <td>{{ item.tabla }}</td>
+          <td>{{ item.registro_id }}</td>
+          <td>{{ item.accion }}</td>
+          <td>{{ item.descripcion }}</td>
+        </tr> {% endfor %} {% else %} <tr>
+          <td colspan="6">No existen registros.</td>
+        </tr> {% endif %} </tbody>
+    </table>
+  </div> 
+  <a href="{% url 'intranet' %}"><button class="btn btn-secondary float-end mb-2">VOLVER</button></a>
+</div> {% endblock content%}

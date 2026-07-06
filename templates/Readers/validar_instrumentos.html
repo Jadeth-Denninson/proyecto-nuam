@@ -1,0 +1,95 @@
+{% extends "../base.html" %}
+{% load static %}
+
+{% block title %}Validar Instrumento Financiero{% endblock title %}
+
+{% block content %}
+<div class="container mt-4">
+
+    <h3 class="font-title mb-4 text-white">Validación de Instrumentos Financieros</h3>
+
+    <!-- FILTROS -->
+    <form method="GET" class="row g-3 mb-4">
+        <div class="col-md-4">
+            <label class="form-label text-white">Buscar</label>
+            <input type="text" class="form-control text-white bg-dark border-secondary"
+                   name="texto" placeholder="Buscar…" value="{{ texto }}">
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label text-white">Estado</label>
+            <select name="estado" class="form-select text-white bg-dark border-secondary">
+                <option value="">Todos</option>
+                <option value="INGRESADO" {% if estado == "INGRESADO" %}selected{% endif %}>Ingresado</option>
+                <option value="VALIDADO" {% if estado == "VALIDADO" %}selected{% endif %}>Validado</option>
+                <option value="RECHAZADO" {% if estado == "RECHAZADO" %}selected{% endif %}>Rechazado</option>
+            </select>
+        </div>
+
+        <div class="col-md-4 d-flex align-items-end gap-2">
+            <button type="submit" class="admin-btn" style="width:80px; height:40px; font-size:0.8rem !important; background-color: #ff4201 !important;">BUSCAR</button>
+            <button type="reset" class="admin-btn" style="width:80px; height:40px; font-size:0.8rem !important; background-color: #ff4201 !important;">LIMPIAR</button>
+        </div>
+    </form>
+
+    <!-- TABLA -->
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered align-middle text-center">
+                <thead class="table-primary">
+                    <tr>
+                        <th></th>
+                        <th>ID</th>
+                        <th>Código</th>
+                        <th>Descripción</th>
+                        <th>Categoría</th>
+                        <th>Bolsa</th>
+                        <th>Mercado</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for inst in instrumentos %}
+                    <tr>
+                        <td>
+                            <input type="radio" name="seleccion" value="{{ inst.instrumento_id }}">
+                        </td>
+                        <td>{{ inst.instrumento_id }}</td>
+                        <td>{{ inst.codigo }}</td>
+                        <td>{{ inst.descripcion }}</td>
+                        <td>{{ inst.categoria }}</td>
+                        <td>{{ inst.bolsa }}</td>
+                        <td>{{ inst.mercado }}</td>
+                        <td>{{ inst.estado }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="8">No hay resultados</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- BOTONES -->
+        <div class="d-flex justify-content-end gap-2 mt-3">
+            <button name="accion" value="VALIDADO" class="admin-btn" style="width:90px; height:40px; font-size:0.8rem !important; background-color: green !important;">
+                VALIDAR
+            </button>
+            <button name="accion" value="RECHAZADO" class="admin-btn" style="width:100px; height:40px; font-size:0.8rem !important; background-color: red !important;">
+                RECHAZAR
+            </button>
+            <a href="{% url 'intranet' %}">
+                <button type="button" class="admin-btn"
+                        style="width:80px; height:40px; font-size:0.8rem !important; background-color: grey !important;">
+                    VOLVER
+                </button>
+            </a>
+        </div>
+    </form>
+
+</div>
+{% endblock content %}

@@ -1,0 +1,62 @@
+{% extends "../base.html" %}
+{% load static %}
+
+{% block title %}{% if usuario %}Actualizar usuario{% else %}Crear usuario{% endif %}{% endblock %}
+
+{% block content %}
+<div class="container mt-4 text-white">
+
+    <h3 class="font-title mb-4">{% if usuario %}Actualizar usuario{% else %}Crear nuevo usuario{% endif %}</h3>
+
+    <form method="POST" class="row g-3 mb-4">
+        {% csrf_token %}
+
+        <div class="col-md-4">
+            <label class="form-label">Nombre</label>
+            <input type="text" class="form-control" name="nombre" value="{{ initial.nombre }}" required>
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label">Apellido</label>
+            <input type="text" class="form-control" name="apellido" value="{{ initial.apellido }}" required>
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label">Correo Electrónico</label>
+            <input type="email" class="form-control" name="correo" value="{{ initial.correo }}" required>
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label">{% if usuario %}Nueva contraseña (opcional){% else %}Contraseña{% endif %}</label>
+            <input type="password" class="form-control" name="password1" {% if not usuario %}required{% endif %}>
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label">Confirmar Contraseña</label>
+            <input type="password" class="form-control" name="password2" {% if not usuario %}required{% endif %}>
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label">Rol</label>
+            <select class="form-select" name="rol" required>
+                <option value="">Seleccione rol</option>
+                <option value="auditor" {% if initial.rol == "Auditor" %}selected{% endif %}>Auditor Tributario</option>
+                <option value="corredor" {% if initial.rol == "Corredor" %}selected{% endif %}>Corredor de Bolsas</option>
+                <option value="administrador" {% if initial.rol == "Administrador" %}selected{% endif %}>Administrador</option>
+                <option value="cliente" {% if initial.rol == "Cliente" %}selected{% endif %}>Cliente</option>
+            </select>
+        </div>
+
+        <div class="col-md-12 d-flex justify-content-end gap-2">
+            <button type="submit" class="btn btn-primary btn-sm" style="width:100px; height:40px; font-size:0.8rem; text-align: center; line-height: 25px !important; background-color: #ff4201 !important;">
+                {% if usuario %}<i style="width:140px; height:40px; font-size:0.8rem; text-align: center; line-height: 30px !important; background-color: #ff4201 !important;"></i> ACTUALIZAR{% else %}<i class="bi bi-person-plus"></i> CREAR{% endif %}
+            </button>
+            <a href="{% url 'administracion_usuarios' %}" class="btn btn-secondary btn-sm" style="width:100px; height:40px; font-size:0.8rem; text-align: center; line-height: 30px !important; background-color: gray !important;">CANCELAR</a>
+        </div>
+    </form>
+
+    {% if alert %}
+        <div class="alert alert-success mt-3">{{ alert }}</div>
+    {% endif %}
+</div>
+{% endblock %}

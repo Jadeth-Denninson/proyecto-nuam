@@ -1,0 +1,97 @@
+{% extends "../base.html" %}
+{% load static %}
+
+{% block title %}Validar Calificación Tributaria{% endblock title %}
+
+{% block content %}
+<div class="container mt-4">
+
+    <h3 class="font-title mb-4 text-white">Validación de Calificación Tributaria</h3>
+
+    <!-- FILTROS -->
+    <form method="GET" class="row g-3 mb-4">
+        <div class="col-md-4">
+            <label class="form-label text-white" >Buscar</label>
+            <input type="text" class="form-control text-white bg-dark border-secondary"
+                   name="texto" placeholder="Buscar…" value="{{ texto }}">
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label text-white">Estado</label>
+            <select name="estado"
+                    class="form-select text-white bg-dark border-secondary">
+                <option value="">Todos</option>
+                <option value="PENDIENTE" {% if estado == "PENDIENTE" %}selected{% endif %}>Pendiente</option>
+                <option value="VALIDADA" {% if estado == "VALIDADA" %}selected{% endif %}>Validada</option>
+                <option value="RECHAZADA" {% if estado == "RECHAZADA" %}selected{% endif %}>Rechazada</option>
+            </select>
+        </div>
+
+        <div class="col-md-4 d-flex align-items-end gap-2">
+            <br>
+            <button type="submit" class="admin-btn" style="width:90px; height:40px; font-size:0.8rem; text-align: center; line-height: 15px !important; background-color: #ff4201 !important;">BUSCAR</button>
+            <a href="" class="admin-btn" style="width:90px; height:40px; font-size:0.8rem; text-align: center; line-height: 15px !important; background-color: #ff4201 !important;">LIMPIAR</a>
+        </div>
+    </form>
+
+
+    <!-- TABLA -->
+    <form method="POST">
+        {% csrf_token %}
+        <table class="table table-hover">
+            <thead class="table-primary">
+                <tr>
+                    <th></th>
+                    <th>Secuencia</th>
+                    <th>Instrumento</th>
+                    <th>Descripción</th>
+                    <th>Mercado</th>
+                    <th>Año</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for c in calificaciones %}
+                <tr>
+                    <td><input type="radio" name="seleccion" value="{{ c.secuencia_evento }}"></td>
+                    <td>{{ c.secuencia_evento }}</td>
+                    <td>{{ c.instrumento.codigo }} — {{ c.instrumento.descripcion }}</td>
+                    <td>{{ c.descripcion }}</td>
+                    <td>{{ c.mercado }}</td>
+                    <td>{{ c.anio }}</td>
+                    <td>{{ c.estado }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="text-center">No hay resultados disponibles.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- BOTONES FINALES (mismo estilo del primer HTML) -->
+        <div class="d-flex justify-content-end gap-2 my-3">
+            <button name="accion" value="VALIDADA"
+                    class="admin-btn"
+                    style="width:90px; height:40px; font-size:0.8rem; text-align: center; line-height: 25px !important; background-color: green !important;">
+                VALIDAR
+            </button>
+
+            <button name="accion" value="RECHAZADA"
+                    class="admin-btn"
+                    style="width:100px; height:40px; font-size:0.8rem; text-align: center; line-height: 25px !important; background-color: red !important;">
+                RECHAZAR
+            </button>
+
+            <a href="{% url 'intranet' %}">
+                <button type="button" class="admin-btn"
+                        style="width:80px; height:40px; font-size:0.8rem; text-align: center; line-height: 25px !important; background-color: gray !important;">
+                    VOLVER
+                </button>
+            </a>
+        </div>
+    </form>
+
+</div>
+{% endblock content %}

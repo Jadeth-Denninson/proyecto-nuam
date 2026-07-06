@@ -1,0 +1,118 @@
+{% extends "../base.html" %}
+{% load static %}
+
+{% block title %}Gestión de Calificaciones Tributarias{% endblock title %}
+{% block navbar %}
+    <nav class="navbar bg-nuam-nav border-bottom">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <div class="row">
+              <div class="col">
+                <img src="{% static 'img/logo.png' %}" alt="Logo" width="117" height="27"> |
+              </div>
+
+              <div class="col">
+                <h5 class="mb-0 text-black">
+                  {% block navbar-title %}Creación de Instrumento Financiero{% endblock navbar-title %}
+                </h5>
+              </div>
+            </div>
+        </a>
+        <div class="justify-content-end">
+            <div class="profile-icon1">
+                <i class="bi bi-person-circle"></i>
+            </div>
+        </div>
+      </div>
+    </nav>
+{% endblock navbar %}
+
+{% block content %}
+<div class="container-fluid mt-5 mb-5 px-5">
+    <form method="POST" class="p-3 rounded shadow-sm bg-light mb-4">
+        {% csrf_token %}
+        <div class="row mb-3 align-items-center">
+            <div class="col-md-2">
+                <label class="form-label">InstrumentoID</label>
+                <input type="text" class="form-control" name="id" placeholder="XXXXXXX">
+            </div>
+
+            <div class="col-md-2">
+                <label class="form-label">Código</label>
+                <input type="text" class="form-control" name="codigo" placeholder="Código...">
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label">Categoría</label>
+                <select class="form-select" name="categoria">
+                    <option value="">Seleccione...</option>
+                    <option>ACCIONES</option>
+                    <option>BONOS</option>
+                    <option>DERIVADOS</option>
+                    <option>FONDOS MUTUOS</option>
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <label class="form-label">Bolsa</label>
+                <select class="form-select" name="bolsa">
+                    <option value="">Seleccione...</option>
+                    <option>BCS</option>
+                    <option>BVC</option>
+                    <option>BVL</option>
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <label class="form-label">Mercado</label>
+                <select class="form-select" name="mercado">
+                    <option value="">Seleccione...</option>
+                    <option>Chile</option>
+                    <option>Perú</option>
+                    <option>Colombia</option>
+                </select>
+            </div>
+
+            <div class="col-md-1 d-flex flex-column gap-2">
+                <button type="submit" name="buscar" class="btn btn-sm btn-primary" style="background-color: var(--nuam-primary); border: none;">BUSCAR</button>
+                <button type="submit" name="limpiar" class="btn btn-sm btn-outline-secondary">LIMPIAR</button>
+            </div>
+        </div>
+    </form>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle text-center">
+                <thead class="table-primary text-white" style="background-color: var(--nuam-primary);">
+                    <tr>
+                        <th scope="col"><input type="checkbox" id="selectAll"></th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Código</th>
+                        <th scope="col">Categoría</th>
+                        <th scope="col">Bolsa</th>
+                        <th scope="col">Mercado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in instrumentos %}
+                    <tr>
+                        <td><input type="checkbox" name="seleccionados" value="{{ i.id }}"></td>
+                        <td>{{ i.id }}</td>
+                        <td>{{ i.codigo }}</td>
+                        <td>{{ i.categoria }}</td>
+                        <td>{{ i.bolsa }}</td>
+                        <td>{{ i.mercado }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="d-flex justify-content-end mt-3 gap-3">
+            <button type="submit" name="eliminar" class="btn btn-danger">ELIMINAR</button>
+            <button type="submit" name="ingresar" class="btn btn-success" style="background-color: var(--nuam-primary); border: none;">INGRESAR</button>
+        </div>
+    </form>
+</div>   
+{% endblock content %}

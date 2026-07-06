@@ -1,0 +1,99 @@
+{% load static %}
+{% load contactos %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://unpkg.com/@popperjs/core@2"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="{% static 'css/bootstrap.css'%}">
+  <link rel="stylesheet" href="{% static 'css/_variables.scss'%}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  {% block dependencies %}
+  {% endblock dependencies %}
+  <title>nuam | {% block title%}{% endblock title %}</title>
+</head>
+
+<body>
+
+  <header>
+    {% block navbar %}
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasRightLabel">Menú</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <div class="card p-4">
+        <div class="text-center">
+            <i class="bi bi-person-circle" style="font-size: 4rem;"></i>
+        </div>
+        <div class="profile-info">
+            <p class="profile-label">{{ user.first_name}} {{user.last_name}}</p>
+            <p class="profile-email">{{ user.email }}</p>
+
+            <a href="{% url 'logout' %}" class="btn btn-sm btn-primary mt-3">Cerrar sesión</a>
+        </div>
+    </div>
+    </div>
+      </div>
+    </div>
+
+    <!--    modificación  se agrega contenido al offcanvas -->
+    {% obtener_contactos as contactos %}
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="chatCanvas" aria-labelledby="chatCanvasLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="chatCanvasLabel">Conversaciones</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+      </div>
+      <div class="offcanvas-body p-0">
+        {% include "chat.html" %}
+      </div>
+    </div>
+
+
+    <nav class="navbar bg-nuam-nav border-bottom">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'intranet'%}">
+            <div class="row">
+                <div class="col-lg-4">
+                    <img src="{% static 'img/logo.png' %}" alt="Logo" width="117" height="27"> |
+                </div>
+                {% block navbar_title %}
+                <div class="ms-5 mt-1 col-lg-2 market-info">
+                    <span class="mt-4">
+                        MSCI NUAM USD
+                        </br>
+                        1.371 0.71% ▲
+                    </span>
+                </div>
+                {% endblock navbar_title %}
+            </div>
+        </a>
+        <!--modificación : d-flex align-items-center  y el primer a -->
+        <div class="justify-content-end d-flex align-items-center">
+            <a href="#" data-bs-toggle="offcanvas" data-bs-target="#chatCanvas" aria-controls="chatCanvas">
+                <div class="profile-icon1 me-3">
+                    <i class="bi bi-chat-fill"></i>
+                </div>
+            </a>
+
+            <a href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><div class="profile-icon1">
+                <i class="bi bi-person-circle"></i>
+            </div></a>
+        </div>
+      </div>
+    </nav>
+    {% endblock navbar %}
+  </header>
+
+  {% block content %}{% endblock content %}
+</body>
+
+</html>

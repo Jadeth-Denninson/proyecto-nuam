@@ -1,0 +1,39 @@
+{% extends "../base.html" %}
+{% load static %}
+
+{% block title %}Factores de Calificación{% endblock title %}
+
+{% block content %}
+<div class="container mt-4 text-white">
+  <h3 class="font-title mb-4">Factores de Calificación</h3>
+  <p>A continuación se detallan los factores que existen en el sistema:</p>
+
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead class="table-primary">
+        <tr>
+          <th>ID del Factor</th>
+          <th>Nombre / Descripción</th>
+          <th>Categoría</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if factores %}
+        {% for factor in factores %}
+        <tr>
+          <td>F.{{ factor.factor_id }}</td>
+          <td>{{ factor.nombre_factor }}</td>
+          <td>{% if factor.categoria %}{{ factor.categoria.nombre }}{% else %}Sin Categoría{% endif %}</td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+          <td colspan="3" class="text-start">No existen factores en el sistema.</td>
+        </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+  <a href="{% url 'cliente_dashboard' %}"><button class="btn btn btn-secondary mt-3 float-end">Volver</button></a>
+</div>
+{% endblock content %}

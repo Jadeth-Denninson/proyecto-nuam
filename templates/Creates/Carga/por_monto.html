@@ -1,0 +1,88 @@
+{% extends "../../base.html" %}
+{% load static %}
+
+{% block title %}Carga por Monto{% endblock %}
+
+{% block dependencies %}
+  <script src="{% static 'js/ver_calificaciones.js' %}"></script>
+{% endblock dependencies %}
+
+{% block content %}
+<div class="container mt-4">
+  <h3 class="font-title mb-4">Cargar Archivo Carga por Monto</h3>
+
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+<div class="row g-3">
+  <div class="col-md-10">
+    <label class="form-label">Archivo</label>
+    <input type="file" name="archivo" class="form-control" accept=".csv">
+  </div>
+</div>
+
+
+  <div class="table-responsive mt-3">
+    <table class="table table-hover table-bordered">
+      <thead class="table-primary">
+        <tr>
+            <th>Ejercicio</th>
+            <th>Mercado</th>
+            <th>Instrumento</th>
+            <th>Fecha Pago</th>
+            <th>Descripción</th>
+            <th>Secuencia Evento</th>
+            <th>Dividendo</th>
+            <th>Valor Histórico</th>
+
+            {% for f in factores %}
+            <th class="th-cut" data-bs-toggle="tooltip" data-bs-placement="bottom" title="F.{{ f.factor_id }} — {{f.nombre_factor}}">
+                F.{{ f.factor_id }} — {{f.nombre_factor}}
+            </th>
+            {% endfor %}
+        </tr>
+      </thead>
+
+      <tbody>
+        {% if datos %}
+          {% for fila in datos %}
+            <tr>
+              <td>{{ fila.anio }}</td>
+              <td>{{ fila.mercado }}</td>
+              <td>{{ fila.instrumento }}</td>
+              <td>{{ fila.fecha_pago }}</td>
+              <td>{{ fila.descripcion }}</td>
+              <td>{{ fila.secuencia_evento }}</td>
+              <td>{{ fila.dividendo }}</td>
+              <td>{{ fila.valor_historico }}</td>
+              {% for v in fila.factores %}
+                <td class="text-center">
+                  {{ v }}
+                </td>
+              {% endfor %}
+            </tr>
+          {% endfor %}
+        {% else %}
+          <tr>
+            <td colspan="50" class="text-start">No hay registros válidos en el archivo seleccionado</td>
+          </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="d-flex gap-2 mt-3">
+    <button type="submit" name="calcular" class="btn btn-sm btn-primary">CALCULAR</button>
+    <button type="submit" name="grabar" class="btn btn-sm btn-primary">GRABAR</button>
+  </form>
+<div id="loader" class="progress my-3" style="display:none;">
+  <div id="loader-bar" class="progress-bar progress-bar-striped progress-bar-animated"
+      role="progressbar" style="width: 0%"></div>
+</div>
+
+
+    <a href="#" class="btn btn-sm btn-primary">VER FORMATO</a>
+    <a href="{% url 'ver_calificaciones' %}" class="btn btn-secondary">VOLVER</a>
+  </div>
+</div>
+{% endblock %}

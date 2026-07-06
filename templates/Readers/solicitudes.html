@@ -1,0 +1,105 @@
+{% extends "../base.html" %}
+{% load static %}
+
+{% block title %}Gestión de solicitudes{% endblock title %}
+
+{% block content %}
+<div class="container mt-4">
+    <h3 class="font-title mb-4 text-white">Gestión de solicitudes</h3>
+
+    <form method="GET" class="row g-3 mb-4">
+        <div class="col-md-3">
+            <label for="usuario_id" class="form-label text-white">Solicitud ID</label>
+            <input type="text" class="form-control text-white bg-dark border-secondary" name="solicitud_id" id="solicitud_id" placeholder="Sl001">
+        </div>
+        <div class="col-md-3">
+            <label for="nombre" class="form-label text-white">Usuario</label>
+            <input type="text" class="form-control text-white bg-dark border-secondary" name="usuario" id="usuario" placeholder="Juanito Pérez">
+        </div>
+        <div class="col-md-3">
+            <label for="correo" class="form-label text-white">Rol</label>
+            <input type="text" class="form-control text-white bg-dark border-secondary" name="rol" id="rol" placeholder="Corredor de bolsas">
+        </div>
+        <div class="col-md-3">
+            <label for="nombre" class="form-label text-white">Motivo</label>
+            <input type="text" class="form-control text-white bg-dark border-secondary" name="motivo" id="motivo" placeholder="El motivo es...">
+        </div>
+        <div class="col-md-3">
+            <label for="correo" class="form-label text-white">Fecha</label>
+            <input type="date" class="form-control text-white bg-dark border-secondary" name="fecha" id="fecha">
+        </div>
+        <div class="col-md-12 d-flex justify-content-end gap-2">
+            <button type="submit" class="admin-btn" style="width:70px; height:40px; font-size:0.8rem !important; line-height:1 !important; padding:4px 4px !important;">BUSCAR</button>
+            <button type="reset" class="admin-btn" style="width:70px; height:40px; font-size:0.8rem !important; line-height:1 !important; padding:4px 4px !important;">LIMPIAR</button>
+        </div>
+    </form>
+
+    <table class="table table-hover">
+        <thead class="table-primary">
+            <tr>
+                <th>ID</th>
+                <th>Usuario</th>
+                <th>Rol</th>
+                <th>Motivo</th>
+                <th>Fecha</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+        {% for solicitud in solicitudes %}
+            <tr>
+                <td>{{ solicitud.solicitud_id }}</td>
+                <td>{{ solicitud.usuario }}</td>
+                <td>{{ solicitud.group }}</td>
+                <td>{{ solicitud.motivo }}</td>
+                <td>{{ solicitud.fecha }}</td>
+                <td>
+                    <a href="{% url 'editar_solicitud' solicitud.solicitud_id %}" class="btn btn-sm btn-primary" style="background-color: green;">
+                        <i class="bi bi-pencil"></i>
+                    </a>
+
+                    <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarModal{{ solicitud.solicitud_id }}">
+                        <i class="bi bi-trash"></i>
+                    </button>
+
+                    <div class="modal fade" id="eliminarModal{{ solicitud.solicitud_id }}" tabindex="-1" aria-labelledby="eliminarModalLabel{{ solicitud.solicitud_id }}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="eliminarModalLabel{{ solicitud.solicitud_id }}">Confirmar eliminación</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                </div>
+
+                                <div class="modal-body">
+                                    ¿Desea eliminar la solicitud?
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <a href="{% url 'eliminar_solicitud' solicitud.solicitud_id %}" class="btn btn-danger">Sí, eliminar</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+
+        {% empty %}
+            <tr>
+                <td colspan="6">No hay registros disponibles.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+
+    <div class="col-md-12 d-flex justify-content-end gap-2 mt-3">
+        <a href="{% url 'intranet' %}" class="admin-btn" style="width:80px; height:40px; font-size:0.8rem !important; line-height:1 !important; padding:4px 4px !important; background-color: gray !important;">VOLVER</a>
+    </div>
+
+</div>
+{% endblock content %}

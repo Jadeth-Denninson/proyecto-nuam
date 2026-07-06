@@ -1,0 +1,30 @@
+{% extends "../base.html" %}
+{% load static %}
+
+{% block title %}Nueva Solicitud{% endblock title %}
+
+{% block content %}
+<div class="container mt-4 text-white">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h3 class="font-title mb-4 text-center">Crear Solicitud</h3>
+      <p class="text-center">Puedes solicitar el estado de una de tus calificaciones tributarias.</p>
+      <form method="POST" action="{% url 'cliente_agregar_solicitud' %}">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="calificacion" class="form-label">Calificación Tributaria</label>
+          {{ form.calificacion }}
+        </div>
+        <div class="mb-3">
+          <label for="motivo" class="form-label">Motivo o Consulta</label>
+          {{ form.motivo }}
+        </div>
+        <div class="d-flex justify-content-between mt-4">
+          <a href="{% url 'cliente_dashboard' %}" class="btn btn-secondary">Cancelar</a>
+          <button type="submit" class="btn btn-primary">Enviar Solicitud</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}

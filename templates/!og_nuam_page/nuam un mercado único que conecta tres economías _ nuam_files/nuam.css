@@ -1,0 +1,3561 @@
+@font-face {
+  font-family: degular-gb;
+  font-style: normal;
+  font-weight: 400;
+  src: url(../fonts/DegularDisplay-Regular.8d9a635091b9ed50b6ec.otf) format("truetype-variations")
+}
+
+@font-face {
+  font-family: degular;
+  font-style: italic;
+  font-weight: 300;
+  src: url(../fonts/DegularDisplay-RegularItalic.8737fb172bba0a631085.otf) format("truetype-variations")
+}
+
+@font-face {
+  font-family: degular-gb;
+  font-style: normal;
+  font-weight: 700;
+  src: url(../fonts/DegularDisplay-Bold.051b303c7e2620094679.otf) format("truetype-variations")
+}
+
+@font-face {
+  font-family: "ptserif";
+  font-style: normal;
+  font-weight: 400;
+  src: url(../fonts/PTSerif-Regular.30e6f341123ce95115a8.ttf) format("truetype-variations")
+}
+
+@font-face {
+  font-family: "ptserif";
+  font-style: normal;
+  font-weight: 700;
+  src: url(../fonts/PTSerif-Bold.72af20bd8438de5f0e5f.ttf) format("truetype-variations")
+}
+
+.nuam .sc-clean * {
+  box-sizing: unset;
+  -webkit-box-sizing: unset;
+  -moz-box-sizing: unset;
+  -o-box-sizing: unset
+}
+
+.nuam .sc-clean label {
+  display: inline-block;
+  max-width: 100%;
+  margin-bottom: 0;
+  font-weight: 400
+}
+
+.nuam .sc-launcher {
+  width: 70px;
+  height: 70px;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  position: fixed;
+  right: 25px;
+  bottom: 25px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  cursor: pointer
+}
+
+.nuam .sc-launcher,
+.nuam .sc-launcher:before {
+  border-radius: 50%;
+  -webkit-transition: -webkit-box-shadow .2s ease-in-out;
+  transition: -webkit-box-shadow .2s ease-in-out;
+  transition: box-shadow .2s ease-in-out;
+  transition: box-shadow .2s ease-in-out, -webkit-box-shadow .2s ease-in-out
+}
+
+.nuam .sc-launcher:before {
+  content: "";
+  position: relative;
+  display: block;
+  width: 60px;
+  height: 60px
+}
+
+.nuam .sc-closed-icon,
+.nuam .sc-open-icon {
+  width: 75px;
+  height: 75px;
+  bottom: 22px;
+  background-size: 75px 75px
+}
+
+.nuam .sc-closed-icon,
+.nuam .sc-new-icon,
+.nuam .sc-open-icon {
+  position: fixed;
+  right: 24px;
+  -webkit-transition: opacity .1s ease-in-out, -webkit-transform .1s ease-in-out;
+  transition: opacity .1s ease-in-out, -webkit-transform .1s ease-in-out;
+  transition: opacity .1s ease-in-out, transform .1s ease-in-out;
+  transition: opacity .1s ease-in-out, transform .1s ease-in-out, -webkit-transform .1s ease-in-out
+}
+
+.nuam .sc-new-icon {
+  width: 178px;
+  height: 73px;
+  bottom: 24px;
+  background-size: 178px 73px
+}
+
+.nuam .sc-launcher.opened:before {
+  -webkit-box-shadow: 0 0 400px 250px rgba(148, 149, 150, .2);
+  box-shadow: 0 0 400px 250px rgba(148, 149, 150, .2)
+}
+
+.nuam .sc-launcher:hover {
+  -webkit-box-shadow: 0 0 27px 1.5px rgba(0, 0, 0, .2);
+  box-shadow: 0 0 27px 1.5px rgba(0, 0, 0, .2)
+}
+
+.nuam .sc-new-messsages-count {
+  position: absolute;
+  top: -3px;
+  left: 41px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  background: #ff4646;
+  color: #fff;
+  text-align: center;
+  margin: auto;
+  font-size: 12px;
+  font-weight: 500
+}
+
+.nuam .sc-closebtn {
+  width: 20px;
+  height: 20px;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  position: fixed;
+  right: 12px;
+  bottom: 100px;
+  border-radius: 50%;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  -webkit-transition: -webkit-box-shadow .2s ease-in-out;
+  transition: -webkit-box-shadow .2s ease-in-out;
+  transition: box-shadow .2s ease-in-out;
+  transition: box-shadow .2s ease-in-out, -webkit-box-shadow .2s ease-in-out;
+  cursor: pointer
+}
+
+.nuam .sc-close-chat {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  color: #000
+}
+
+.nuam .custom-modal {
+  color: #000;
+  font-family: Roboto, sans-serif
+}
+
+.nuam .center-content {
+  margin-top: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+  -ms-flex-pack: space-evenly;
+  justify-content: space-evenly
+}
+
+.nuam .close-cancel-btn,
+.nuam .close-delete-btn {
+  width: 35%;
+  padding: 15px 0 15px 0;
+  text-align: center
+}
+
+.nuam .close-delete-btn {
+  color: #1a1a1a;
+  border-radius: 25px;
+  font-weight: 600
+}
+
+.nuam .close-cancel-btn {
+  border-radius: 25px;
+  background-color: transparent;
+  border-color: #1a1a1a;
+  border-width: 1px;
+  border-style: solid;
+  font-weight: 600
+}
+
+.nuam .modal-text p {
+  font-size: 18px;
+  margin-bottom: 0;
+  font-weight: 600
+}
+
+.nuam .modal-text label {
+  font-size: 12px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  color: #96a1af
+}
+
+.nuam .button-group {
+  margin-top: 35px
+}
+
+.nuam .modal-img {
+  margin: 35px 0 25px 0;
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center
+}
+
+.nuam .v--modal {
+  border-radius: 25px !important
+}
+
+.nuam .sc--vertical-launcher {
+  width: auto;
+  height: 100px;
+  background-color: #9ed2eb;
+  padding: 0 5px 0 10px;
+  top: 65%;
+  border-radius: 20px 0 0 20px
+}
+
+.nuam .sc--vertical-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 100%;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center
+}
+
+.nuam .sc--vertical-launcher-icon {
+  width: 25px;
+  height: 25px;
+  background-size: 25px 25px
+}
+
+.nuam .sc--vertical-new-messsages-count {
+  position: absolute;
+  top: 35px;
+  right: 8px;
+  background: #ff4646;
+  color: #fff;
+  padding: 5px;
+  width: 10px;
+  height: 10px;
+  font-size: 10px;
+  text-align: center;
+  border-radius: 50%
+}
+
+@media(min-width:576px) {
+  .nuam .sc-close-chat {
+    display: none
+  }
+}
+
+@media(max-width:450px) {
+  .nuam .sc_launcher_not_display {
+    display: none !important
+  }
+}
+
+@media(min-width:451px) {
+  .nuam .sc--vertical-launcher {
+    display: none !important
+  }
+
+  .nuam .sc_launcher_not_display {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important
+  }
+}
+
+.nuam .sc-chat-window {
+  width: 370px;
+  height: calc(100% - 120px);
+  max-height: 590px;
+  position: fixed;
+  right: 70px;
+  bottom: 105px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-shadow: 0 7px 30px 1px rgba(148, 149, 150, .3);
+  -webkit-box-shadow: 0 7px 30px 1px rgba(148, 149, 150, .3);
+  background: #f7f7f7;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  -ms-flex-direction: column;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  transition: .3s ease-in-out;
+  -webkit-transition: .3s ease-in-out;
+  border-radius: 15px
+}
+
+.nuam .sc-chat-window.closed {
+  opacity: 0;
+  visibility: hidden;
+  bottom: 90px
+}
+
+.nuam .sc-message--me {
+  text-align: right
+}
+
+.nuam .sc-message--them {
+  text-align: left
+}
+
+@media(max-width:450px) {
+  .nuam .sc-chat-window {
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    right: 0;
+    bottom: 0;
+    border-radius: 15px;
+    -webkit-transition: .1s ease-in-out;
+    transition: .1s ease-in-out
+  }
+
+  .nuam .sc-chat-window.closed {
+    bottom: 0
+  }
+}
+
+.nuam .sc-header {
+  border-radius: 9px 9px 0 0;
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, .2);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .2);
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box
+}
+
+.nuam .sc-header--img {
+  -ms-flex-item-align: center;
+  align-self: center;
+  padding: 10px 10px 10px 20px;
+  width: 20%
+}
+
+.nuam .sc-header--title {
+  -ms-flex-item-align: center;
+  align-self: center;
+  font-size: 15px;
+  color: #fff;
+  font-family: Poppins, sans-serif
+}
+
+.nuam .sc-header--subtitle {
+  font-size: small
+}
+
+.nuam .sc-header--close-button {
+  width: 60px;
+  padding: 13px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: 15px 10px
+}
+
+.nuam .sc-header--close-button:hover {
+  cursor: pointer;
+  -webkit-box-shadow: 0 2px 5px rgba(.2, .2, .5, .1);
+  box-shadow: 0 2px 5px rgba(.2, .2, .5, .1)
+}
+
+.nuam .sc-header--close-button img {
+  height: 10px;
+  padding-top: 20px
+}
+
+@media(max-width:450px) {
+  .nuam .sc-header {
+    border-radius: 0
+  }
+}
+
+.nuam .form-body,
+.nuam .form-dialog {
+  border-radius: 10px
+}
+
+.nuam .form-body {
+  color: grey;
+  margin: 80px 20px;
+  background-color: #fff
+}
+
+.nuam .form-body-scroll {
+  color: grey;
+  margin: 50px 20px
+}
+
+.nuam hr {
+  border-style: inset;
+  border-width: 1px;
+  margin: 10px;
+  border: 0;
+  border-top: 1px solid #eee
+}
+
+.nuam textarea {
+  font-size: 14px
+}
+
+.nuam textarea:focus {
+  text-decoration: none;
+  outline: 0
+}
+
+.nuam .form-title {
+  color: #336195;
+  font-weight: 500
+}
+
+.nuam .form-text-title,
+.nuam .form-title {
+  list-style-type: none;
+  font-size: 14px;
+  margin: 13px 10px 5px 10px
+}
+
+.nuam .form-text-title {
+  font-weight: 400
+}
+
+@media screen and (max-height:650px),
+screen and (max-width:450px) {
+  .nuam .form-title {
+    margin: 10px 10px
+  }
+}
+
+.nuam .form-components.scroll {
+  padding: 10px 20px 0 20px
+}
+
+.nuam .form__field_check {
+  width: 85%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 5px 0 15px 20px
+}
+
+.nuam .form__field_check,
+.nuam .form__label-text {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center
+}
+
+.nuam .form__label-text {
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  text-align: justify
+}
+
+.nuam .form__checkbox {
+  width: 15px;
+  height: 15px;
+  border-radius: 5px;
+  border: 1px solid #333;
+  background-color: #fff;
+  margin-right: 8px;
+  margin-top: 15px
+}
+
+.nuam .form__checkbox:checked {
+  background-color: #b22a09;
+  border-color: #3d3d3d
+}
+
+.nuam .form__checkbox:hover {
+  background-color: #ff411c;
+  border-color: #3d3d3d
+}
+
+.nuam .info-icon {
+  cursor: pointer;
+  margin-left: 8px
+}
+
+.nuam .info-icon__icon {
+  font-size: 9px;
+  width: 9px;
+  height: 9px
+}
+
+.nuam .info-icon__tooltip {
+  background-color: #333;
+  color: #fff
+}
+
+.nuam .info-icon__tooltip a {
+  color: #ff411c
+}
+
+.nuam .info-icon__tooltip a:hover {
+  color: tomato
+}
+
+.nuam .info-icon__tooltip a:active {
+  color: #b22a09
+}
+
+.nuam .form__field {
+  width: 85%;
+  margin: 5px 0 15px 20px
+}
+
+.nuam .form__field label {
+  height: 20px;
+  border-radius: 25px;
+  padding: 8px;
+  background-color: #336195;
+  color: #fff;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  padding-left: 15px;
+  padding-right: 10px
+}
+
+.nuam .form__field input {
+  background-image: none;
+  border: 0;
+  margin: 0;
+  outline: 0;
+  padding: 0;
+  -webkit-transition: background-color .3s;
+  transition: background-color .3s;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  width: 100%;
+  border-radius: 25px;
+  padding: 8px;
+  background-color: #ecefef;
+  color: grey;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  font-size: 14px
+}
+
+.nuam .container__input_phone:hover input,
+.nuam .form__field input:hover {
+  background-color: #d3d3d3
+}
+
+.nuam .container__input_phone {
+  -ms-flex: 1;
+  flex: 1
+}
+
+.nuam .form-box-button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center !important;
+  -ms-flex-pack: center !important;
+  justify-content: center !important;
+  -webkit-box-align: center !important;
+  -ms-flex-align: center !important;
+  align-items: center !important
+}
+
+.nuam .button-secondary {
+  background-color: transparent;
+  border-radius: 15px;
+  border: 2px solid #4067aa;
+  display: inline-block;
+  cursor: pointer;
+  color: #4067aa;
+  font-size: 13px;
+  margin: 5px 5px 0 0;
+  width: 30%;
+  height: 30px
+}
+
+.nuam .button-secondary:hover {
+  background-color: #4067aa;
+  color: #fff;
+  -webkit-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out
+}
+
+.nuam .button-secondary:focus {
+  text-decoration: none;
+  outline: 0
+}
+
+.nuam .button-primary {
+  background-color: #4067aa;
+  border-radius: 15px;
+  border: 0 solid #4067aa;
+  display: inline-block;
+  cursor: pointer;
+  color: #fff;
+  font-size: 13px;
+  margin: 5px 0 0 5px;
+  width: 30%;
+  height: 33px
+}
+
+.nuam .button-primary:hover {
+  background-color: #292e68;
+  -webkit-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out
+}
+
+.nuam .button-primary:focus {
+  text-decoration: none;
+  outline: 0
+}
+
+.nuam .form-button-option {
+  background-color: transparent;
+  border-radius: 20px;
+  border: 2px solid #4067aa;
+  display: inline-block;
+  cursor: pointer;
+  color: #4067aa;
+  font-size: 13px;
+  margin: 0 5px 0 5px;
+  width: 60px;
+  height: 30px
+}
+
+.nuam .form-button-option:focus,
+.nuam .form-button-option:hover {
+  background-color: #4067aa;
+  color: #fff;
+  -webkit-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out
+}
+
+.nuam .form-button-option-selected {
+  font-weight: 800
+}
+
+.nuam .form-error {
+  padding: 2% 0;
+  text-align: center;
+  color: red;
+  font-size: 14px
+}
+
+.nuam .form_label {
+  color: #5a5a5a;
+  font-size: 14px;
+  font-weight: 400
+}
+
+.nuam .margin_btn {
+  margin: 2% 30px 0 30px
+}
+
+.nuam .padding-title {
+  padding: 5% 0 3% 0;
+  text-align: center;
+  border-bottom: 1.5px solid #d8d9da
+}
+
+.nuam .form-title-img {
+  background-size: 80px 80px;
+  width: 80px;
+  height: 80px;
+  margin: auto;
+  padding-top: 20px
+}
+
+.nuam .form-components {
+  -webkit-box-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #fff
+}
+
+.nuam select {
+  background: hsla(0, 0%, 100%, .1);
+  border: none;
+  background-color: #ecefef;
+  color: grey;
+  -webkit-box-shadow: inset 0 1px 0 rgba(0, 0, 0, .03);
+  box-shadow: inset 0 1px 0 rgba(0, 0, 0, .03);
+  -webkit-transition: background-color .3s;
+  transition: background-color .3s;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  font-size: 14px
+}
+
+.nuam .va_iconos_tabla {
+  background-color: transparent;
+  border-radius: 10px;
+  border: 2px solid #000;
+  display: inline-block;
+  cursor: pointer;
+  color: grey;
+  margin: 10px 1px;
+  width: 85px;
+  height: 80px;
+  line-height: 13px;
+  padding: 0;
+  font-size: 12px
+}
+
+.nuam .form-section-input--new {
+  height: 36px;
+  padding-bottom: 6px;
+  margin: 15px 0 10px 25px;
+  position: relative
+}
+
+.nuam .form-section-input--new label {
+  background-color: transparent;
+  border-right: 0 !important
+}
+
+.nuam .form-section-input--new input {
+  width: 90%;
+  font-size: 14px;
+  padding: 18px 10px 5px 15px;
+  border: 1px double transparent;
+  border-radius: 3px;
+  background-image: none;
+  background-origin: border-box;
+  background-clip: padding-box, border-box
+}
+
+.nuam .form-section-input--new input,
+.nuam .form-section-input--new span {
+  -webkit-box-sizing: border-box !important;
+  box-sizing: border-box !important;
+  position: absolute
+}
+
+.nuam .form-section-input--new span {
+  font-size: 13px;
+  padding: 10px;
+  border: 0;
+  display: inline-block;
+  -webkit-transition: .4s;
+  transition: .4s;
+  pointer-events: none;
+  margin-left: 4px;
+  margin-top: 3px;
+  font-family: Gotham;
+  font-weight: 500;
+  color: #adadad
+}
+
+.nuam .form-section-input--new input:not(:-moz-placeholder-shown)~span {
+  transform: translateX(1px) translateY(-8px);
+  font-size: 10px;
+  z-index: 999;
+  background-color: #fff;
+  padding: 0;
+  padding-left: 3px;
+  padding-right: 3px
+}
+
+.nuam .form-section-input--new input:not(:-ms-input-placeholder)~span {
+  transform: translateX(1px) translateY(-8px);
+  font-size: 10px;
+  z-index: 999;
+  background-color: #fff;
+  padding: 0;
+  padding-left: 3px;
+  padding-right: 3px
+}
+
+.nuam .form-section-input--new input:focus~span,
+.nuam .form-section-input--new input:not(:placeholder-shown)~span {
+  -webkit-transform: translateX(1px) translateY(-8px);
+  transform: translateX(1px) translateY(-8px);
+  font-size: 10px;
+  z-index: 999;
+  background-color: #fff;
+  padding: 0;
+  padding-left: 3px;
+  padding-right: 3px
+}
+
+.nuam .hide-icon-new {
+  color: #336195;
+  right: 15px
+}
+
+.nuam .label-hover:hover {
+  cursor: pointer;
+  color: #336195;
+  -webkit-transform: scale(1.2);
+  transform: scale(1.2)
+}
+
+.nuam .icon-padding {
+  padding: 15px 4px 0 12px;
+  -webkit-transition: fill .3s;
+  transition: fill .3s
+}
+
+.nuam .label-hover:hover .icon-padding {
+  fill: #336195
+}
+
+.nuam .sc-user-input {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px
+}
+
+.nuam .sc-user-input,
+.nuam .sc-user-input.info {
+  min-height: 55px;
+  margin: 0;
+  position: relative;
+  bottom: 0;
+  pointer-events: var(--showInput);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: #f4f7f9;
+  -webkit-transition: background-color .2s ease, -webkit-box-shadow .2s ease;
+  transition: background-color .2s ease, -webkit-box-shadow .2s ease;
+  transition: background-color .2s ease, box-shadow .2s ease;
+  transition: background-color .2s ease, box-shadow .2s ease, -webkit-box-shadow .2s ease;
+  cursor: text
+}
+
+.nuam .sc-user-input.info {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0
+}
+
+.nuam .sc-user-input--text {
+  width: 80%;
+  resize: none;
+  border: none;
+  outline: none;
+  border-bottom-left-radius: 10px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 18px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.33;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  color: #565867;
+  -webkit-font-smoothing: antialiased;
+  max-height: 200px;
+  overflow: scroll;
+  bottom: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  cursor: text
+}
+
+.nuam .sc-user-input--text:empty:before {
+  content: attr(placeholder);
+  display: block;
+  -webkit-filter: contrast(15%);
+  filter: contrast(15%);
+  outline: none
+}
+
+.nuam .sc-user-input--buttons {
+  position: absolute;
+  right: 10px;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex
+}
+
+.nuam .sc-user-input--button:first-of-type {
+  width: 40px
+}
+
+.nuam .sc-user-input--button {
+  width: 30px;
+  height: 55px;
+  margin-left: 2px;
+  margin-right: 2px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center
+}
+
+.nuam .sc-user-input.active {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  background-color: #fff;
+  -webkit-box-shadow: 0 -5px 20px 0 rgba(150, 165, 190, .2);
+  box-shadow: 0 -5px 20px 0 rgba(150, 165, 190, .2)
+}
+
+.nuam .sc-user-input--button label {
+  position: relative;
+  height: 24px;
+  padding-left: 3px;
+  cursor: pointer
+}
+
+.nuam .sc-user-input--button label:hover path {
+  fill: #565867
+}
+
+.nuam .sc-user-input--button input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 99999;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  overflow: hidden
+}
+
+.nuam .tooltip-gb {
+  display: block !important;
+  z-index: 999999999999;
+  margin-top: 0 !important;
+  margin-left: -40px !important;
+  background-color: transparent !important;
+  border: none !important
+}
+
+.nuam .tooltip-gb .tooltip-gb-inner {
+  background: #acafbf;
+  color: #fff;
+  border-radius: 16px;
+  padding: 7px;
+  font-size: 10px;
+  max-width: 250px;
+  line-height: 12px;
+  overflow-wrap: break-word
+}
+
+.nuam .tooltip-gb .tooltip-gb-arrow {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  position: absolute;
+  margin: 7px;
+  border-color: #acafbf;
+  z-index: 1
+}
+
+.nuam .tooltip-gb[x-placement^=top] {
+  margin-bottom: 5px
+}
+
+.nuam .tooltip-gb[x-placement^=top] .tooltip-gb-arrow {
+  border-width: 5px 5px 0 5px;
+  border-left-color: transparent !important;
+  border-right-color: transparent !important;
+  border-bottom-color: transparent !important;
+  bottom: -5px;
+  left: calc(50% - 5px);
+  margin-top: 0;
+  margin-bottom: 0
+}
+
+.nuam .tooltip-gb[x-placement^=bottom] {
+  margin-top: 5px
+}
+
+.nuam .tooltip-gb[x-placement^=bottom] .tooltip-gb-arrow {
+  border-width: 0 5px 5px 5px;
+  border-left-color: transparent !important;
+  border-right-color: transparent !important;
+  border-top-color: transparent !important;
+  top: -5px;
+  left: calc(50% - 5px);
+  margin-top: 0;
+  margin-bottom: 0
+}
+
+.nuam .tooltip-gb[x-placement^=right] {
+  margin-left: 5px
+}
+
+.nuam .tooltip-gb[x-placement^=right] .tooltip-gb-arrow {
+  border-width: 5px 5px 5px 0;
+  border-left-color: transparent !important;
+  border-top-color: transparent !important;
+  border-bottom-color: transparent !important;
+  left: -5px;
+  top: calc(50% - 5px);
+  margin-left: 0;
+  margin-right: 0
+}
+
+.nuam .tooltip-gb[x-placement^=left] {
+  margin-right: 5px
+}
+
+.nuam .tooltip-gb[x-placement^=left] .tooltip-gb-arrow {
+  border-width: 5px 0 5px 5px;
+  border-top-color: transparent !important;
+  border-right-color: transparent !important;
+  border-bottom-color: transparent !important;
+  right: -5px;
+  top: calc(50% - 5px);
+  margin-left: 0;
+  margin-right: 0
+}
+
+.nuam .tooltip-gb[aria-hidden=true] {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: opacity .15s, visibility .15s;
+  transition: opacity .15s, visibility .15s
+}
+
+.nuam .tooltip-gb[aria-hidden=false] {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transition: opacity .15s;
+  transition: opacity .15s
+}
+
+.nuam .tooltip-gb.popover .popover-inner {
+  background: #4067aa;
+  color: #fff;
+  border-radius: 16px;
+  -webkit-box-shadow: 0 5px 30px rgba(0, 0, 0, .1);
+  box-shadow: 0 5px 30px rgba(0, 0, 0, .1);
+  padding: 8px 10px;
+  font-size: 10px;
+  max-width: 250px;
+  line-height: 12px;
+  overflow-wrap: break-word
+}
+
+.nuam .tooltip-gb.popover .popover-arrow {
+  border-color: #4067aa
+}
+
+.nuam .tooltip-gb.popover .popover {
+  background-color: transparent;
+  border: none
+}
+
+.nuam .contenido-desarrolloGB {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  font-weight: 700;
+  padding: 5px;
+  color: #99a4b0;
+  font-size: 10px;
+  margin: auto
+}
+
+.nuam .texto-desarrolloGB {
+  margin-right: 4px
+}
+
+.nuam .empresa-desarrolloGB a {
+  text-decoration: none;
+  background-color: transparent
+}
+
+.nuam .sc-microphone-input--buttons {
+  position: absolute;
+  right: 10px;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex
+}
+
+.nuam .sc-microphone-input--button:first-of-type {
+  width: 40px
+}
+
+.nuam .sc-microphone-input--button {
+  width: 30px;
+  height: 55px;
+  margin-left: 2px;
+  margin-right: 2px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center
+}
+
+.nuam .sc-microphone-input.active {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  background-color: #fff;
+  -webkit-box-shadow: 0 -5px 20px 0 rgba(150, 165, 190, .2);
+  box-shadow: 0 -5px 20px 0 rgba(150, 165, 190, .2)
+}
+
+.nuam .sc-microphone-input--button label {
+  position: relative;
+  height: 24px;
+  padding-left: 3px;
+  cursor: pointer
+}
+
+.nuam .sc-microphone-input--button label:hover path {
+  fill: #565867
+}
+
+.nuam .sc-microphone-input--button input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 99999;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  overflow: hidden
+}
+
+.nuam .sc-stop-input--buttons {
+  position: absolute;
+  right: 10px;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex
+}
+
+.nuam .sc-stop-input--button:first-of-type {
+  width: 40px
+}
+
+.nuam .sc-stop-input--button {
+  width: 30px;
+  height: 55px;
+  margin-left: 2px;
+  margin-right: 2px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center
+}
+
+.nuam .sc-stop-input.active {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  background-color: #fff;
+  -webkit-box-shadow: 0 -5px 20px 0 rgba(150, 165, 190, .2);
+  box-shadow: 0 -5px 20px 0 rgba(150, 165, 190, .2)
+}
+
+.nuam .sc-stop-input--button label {
+  position: relative;
+  height: 24px;
+  padding-left: 3px;
+  cursor: pointer
+}
+
+.nuam .sc-stop-input--button label:hover path {
+  fill: #565867
+}
+
+.nuam .sc-stop-input--button input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 99999;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  overflow: hidden
+}
+
+.nuam .sc-microphone-input--send-icon-wrapper {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  outline: none;
+  margin-left: 10px
+}
+
+.nuam .sc-microphone-input--send-icon-wrapper:focus {
+  outline: none
+}
+
+.nuam .sc-microphone-input--send-icon {
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+  -ms-flex-item-align: center;
+  align-self: center;
+  outline: none
+}
+
+.nuam .sc-microphone-input--send-icon:hover path {
+  -webkit-filter: contrast(15%);
+  filter: contrast(15%)
+}
+
+.nuam .sc-stop-input--send-icon-wrapper {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  outline: none
+}
+
+.nuam .sc-stop-input--send-icon-wrapper:focus {
+  outline: none
+}
+
+.nuam .sc-stop-input--send-icon {
+  height: 23px;
+  width: 23px;
+  cursor: pointer;
+  -ms-flex-item-align: center;
+  align-self: center;
+  outline: none
+}
+
+.nuam .sc-stop-input--send-icon:hover path {
+  -webkit-filter: contrast(15%);
+  filter: contrast(15%)
+}
+
+.nuam .sc-message-list {
+  height: 80%;
+  overflow-y: auto;
+  background-size: 100%
+}
+
+.nuam .sc-message--content.received .sc-message--data {
+  color: #636363;
+  padding: 10px 10px 10px 12px;
+  border-radius: 15px 15px 0 0
+}
+
+.nuam .sc-message {
+  width: 340px;
+  margin: auto;
+  padding-bottom: 10px
+}
+
+.nuam .sc-message,
+.nuam .sc-message--content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex
+}
+
+.nuam .sc-message--content {
+  width: 100%
+}
+
+.nuam .sc-message--content.sent {
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end
+}
+
+.nuam .sc-message--content.system {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center
+}
+
+.nuam .sc-message--content.sent .sc-message--avatar {
+  display: none
+}
+
+.nuam .sc-message--meta {
+  font-size: 10px;
+  margin-bottom: 0;
+  text-align: right
+}
+
+.nuam .sc-message--content.received .sc-message--meta {
+  color: #636363;
+  padding: 5px 10px
+}
+
+.nuam .sc-message--audio {
+  margin: 0;
+  float: left;
+  cursor: pointer
+}
+
+@media(max-width:450px) {
+  .nuam .sc-message {
+    width: 80%
+  }
+}
+
+.nuam .sc-message--box {
+  min-width: 140px;
+  padding: 5px 8px;
+  border-radius: 15px 15px 15px 0;
+  font-size: 14px;
+  line-height: 1.4;
+  -webkit-font-smoothing: subpixel-antialiased;
+  width: 100%
+}
+
+.nuam .sc-message--content.sent .sc-message--box {
+  color: #fff;
+  background-color: #4067aa;
+  max-width: calc(100% - 120px);
+  word-wrap: break-word;
+  border-radius: 10px 10px 0 10px;
+  padding: 10px 10px 10px 12px;
+  -webkit-box-shadow: 4px 4px 5px 0 hsla(0, 0%, 83.9%, .69);
+  box-shadow: 4px 4px 5px 0 hsla(0, 0%, 83.9%, .69);
+  margin: 10px 10px 0 0
+}
+
+.nuam .sc-message--box code {
+  font-family: Courier New, Courier, monospace
+}
+
+.nuam .sc-message--slide-subtitle {
+  font-weight: 600;
+  padding-left: 10px
+}
+
+.nuam .sc-message--content.received .sc-message--box {
+  color: grey;
+  background-color: #fff;
+  -webkit-box-shadow: 4px 4px 5px 0 hsla(0, 0%, 83.9%, .69);
+  box-shadow: 4px 4px 5px 0 hsla(0, 0%, 83.9%, .69)
+}
+
+.nuam .sc-message--content.executive .sc-message--box,
+.nuam .sc-message--content.received .sc-message--box {
+  font-size: 14px;
+  margin: 20px 0 0 10px;
+  margin-right: 30px;
+  word-wrap: break-word;
+  border-radius: 10px 10px 10 0;
+  padding: 0 0 0 0
+}
+
+.nuam .sc-message--content.executive .sc-message--box {
+  background-color: #e2e2e2;
+  -webkit-box-shadow: 0 5px 20px 0 rgba(148, 149, 150, .3);
+  box-shadow: 0 5px 20px 0 rgba(148, 149, 150, .3)
+}
+
+.nuam .sc-message--content.executive .sc-message--meta {
+  color: #636363;
+  padding: 5px 10px
+}
+
+.nuam .sc-message--content.executive .sc-message--box .sc-message--data {
+  background-color: #e2e2e2;
+  padding: 5px 10px;
+  color: #0c4e84
+}
+
+.nuam .sc-message--slide-text {
+  margin: 0 10px 10px 10px
+}
+
+.nuam .sc-message--data a.chatLink.chatLink-phone {
+  pointer-events: none;
+  text-decoration: none;
+  color: currentColor;
+  cursor: default
+}
+
+.nuam #btn-positivo,
+.nuam #btn-positivo:focus {
+  background-color: #7fb535
+}
+
+.nuam .btn-negativo,
+.nuam .btn-negativo:focus {
+  background-color: #c23b3b
+}
+
+.nuam .calificacion-text {
+  border: 1px solid;
+  border-radius: 5px
+}
+
+.nuam .padding-tp-hora {
+  padding-top: 3px
+}
+
+.nuam .calificacion-text-left {
+  text-align: left
+}
+
+.nuam button:focus {
+  outline: 0 !important
+}
+
+.nuam .img-btn-positivo {
+  margin: -2px;
+  color: #fff
+}
+
+.nuam .img-btn-negativo {
+  margin: -3px;
+  color: #fff
+}
+
+.nuam button {
+  border-width: 0;
+  border-style: none;
+  border-color: none
+}
+
+.nuam .sc-message--pdf-container {
+  margin-top: 5px;
+  width: 100%;
+  text-align: center
+}
+
+.nuam .sc-message--pdf-container img {
+  display: block;
+  margin: auto;
+  width: 35px;
+  height: 35px;
+  margin-bottom: 5px;
+  margin-top: 5px
+}
+
+.nuam .sc-message--download-button {
+  padding: 6px;
+  min-width: 100px;
+  border-radius: 20px;
+  margin-top: 5px;
+  background-color: transparent;
+  cursor: pointer
+}
+
+.nuam .sc-positive-evaluation {
+  border-color: #7fb535;
+  color: #7fb535
+}
+
+.nuam .sc-negative-evaluation {
+  border-color: #c23b3b;
+  color: #c23b3b
+}
+
+.nuam .sc-message--button {
+  height: 100%;
+  padding: 10px 0 0 0
+}
+
+.nuam .sc-message--button-image {
+  width: 85%;
+  display: block;
+  margin: auto;
+  border-radius: 10px 10px 0 0
+}
+
+.nuam .sc-message--button-subtitle {
+  font-size: 14px;
+  color: #565656;
+  margin: 0 5px 10px 10px
+}
+
+.nuam .sc-message--button-text {
+  list-style-type: none;
+  color: #336195;
+  font-size: 14px;
+  margin: 0 10px 10px 10px;
+  font-weight: 700
+}
+
+.nuam .sc-message--button-hr {
+  height: 1px;
+  border: 0;
+  background-color: #d8d9da;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  outline: none
+}
+
+.nuam .sc-message--button-control {
+  list-style-type: none;
+  padding: 0;
+  margin: 0
+}
+
+.nuam .sc-message--button-control-item {
+  color: #4067aa;
+  font-size: 14px;
+  line-height: 2em;
+  cursor: pointer
+}
+
+.nuam .sc-message--button-control-item a {
+  display: block;
+  padding: 2% 0;
+  text-decoration: none;
+  padding-left: 10px;
+  font-size: 13px;
+  line-height: 15px
+}
+
+.nuam .sc-message--button-control-item a:hover {
+  color: #fff;
+  background-color: #4067aa
+}
+
+.nuam .sc-message--button-button-bg {
+  color: #fff;
+  background-color: #326295
+}
+
+.nuam .sc-message--button-button:hover {
+  text-decoration: underline;
+  transition-duration: .2s;
+  -webkit-transition-duration: .2s;
+  -moz-transition-duration: .2s;
+  text-decoration: none
+}
+
+.nuam .sc-message--button-icon-footer {
+  width: 85%;
+  margin: auto;
+  height: 28px;
+  background-color: #ccc;
+  border-radius: 0 0 10px 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end
+}
+
+.nuam .sc-message--slide {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  display: block
+}
+
+.nuam .sc-message--slide-page {
+  border-radius: 15px 15px 0 0
+}
+
+.nuam .sc-message--slide-page-active {
+  color: #02afb9
+}
+
+.nuam .sc-message--slide-navigation {
+  position: relative;
+  background-color: #eaeded;
+  border-radius: 15px 15px 0 0;
+  width: 100%
+}
+
+.nuam .sc-message--slide-slideshow {
+  width: calc(100% - 60px);
+  position: relative;
+  left: 30px;
+  padding-top: 20px;
+  padding-bottom: 40px
+}
+
+.nuam .sc-message--slide-slideshow-ul {
+  margin: 0;
+  padding: 0;
+  list-style: none
+}
+
+.nuam .sc-message--slide-slideshow-li {
+  display: list-item;
+  text-align: -webkit-match-parent;
+  list-style: none;
+  background-color: #fff;
+  border-radius: 15px 15px 15px 15px
+}
+
+.nuam .sc-message--slide-slideshow-body {
+  width: 100%;
+  margin: auto
+}
+
+.nuam .sc-message--slide-slideshow-img {
+  border-radius: 10px 10px 0 0;
+  width: 100%
+}
+
+.nuam .sc-message--slide-slideshow-img::-moz-selection {
+  background: transparent
+}
+
+.nuam .sc-message--slide-slideshow-img::selection {
+  background: transparent
+}
+
+.nuam .sc-message--slide-pagination {
+  top: -20px
+}
+
+.nuam .sc-message--slide-pagination,
+.nuam .sc-message--slide-pagination ol {
+  position: relative;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  outline: none
+}
+
+.nuam .sc-message--slide-pagination li {
+  font-size: 8px;
+  margin: 0 0 0 -3px;
+  color: #b1b0b1;
+  cursor: pointer
+}
+
+.nuam .sc-message--slide-pagination-no-image {
+  top: -20px
+}
+
+.nuam .sc-message--slide-pagination-no-image,
+.nuam .sc-message--slide-pagination-no-image ol {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  outline: none
+}
+
+.nuam .sc-message--slide-pagination-no-image ol {
+  top: 10px
+}
+
+.nuam .sc-message--slide-pagination-no-image li {
+  font-size: 8px;
+  margin: 0 10px 0 -3px;
+  color: #b1b0b1;
+  cursor: pointer
+}
+
+.nuam .sc-message--slide-left {
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%)
+}
+
+.nuam .sc-message--slide-left,
+.nuam .sc-message--slide-left-no-image {
+  padding-top: 0;
+  display: inline;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #4067aa;
+  font-size: 14px;
+  cursor: pointer
+}
+
+.nuam .sc-message--slide-left-no-image {
+  left: 15px;
+  top: 10px;
+  position: relative
+}
+
+.nuam .sc-message--slide-right {
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%)
+}
+
+.nuam .sc-message--slide-right,
+.nuam .sc-message--slide-right-no-image {
+  padding-top: 0;
+  display: inline;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #4067aa;
+  font-size: 14px;
+  cursor: pointer
+}
+
+.nuam .sc-message--slide-right-no-image {
+  left: calc(100% - 50px);
+  top: 10px;
+  position: relative
+}
+
+.nuam .sc-message--slide-content {
+  position: static;
+  width: 100%;
+  display: block;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  outline: none
+}
+
+.nuam .sc-message--slide-title {
+  list-style-type: none;
+  color: #336195;
+  font-size: 14px;
+  margin: 13px 10px 5px 10px;
+  font-weight: 700
+}
+
+.nuam .sc-message--slide-text {
+  font-size: 13px;
+  color: grey;
+  margin: 3px 0 3px 10px
+}
+
+.nuam .sc-message--slide-hr {
+  height: 1px;
+  border: 0;
+  background-color: #d8d9da;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  outline: none
+}
+
+.nuam .sc-message--slide-control {
+  list-style-type: none;
+  padding: 0;
+  margin: 0
+}
+
+.nuam .sc-message--slide-control-item {
+  color: #00acba;
+  font-size: 14px;
+  line-height: 2em;
+  cursor: pointer
+}
+
+.nuam .sc-message--slide-control-item a {
+  display: block;
+  padding: 1px 0;
+  text-decoration: none;
+  padding-left: 10px;
+  font-size: 14px;
+  color: #4067aa;
+  background-color: #fff
+}
+
+.nuam .sc-message--slide-control-item a:hover {
+  color: #fff;
+  background-color: #4067aa
+}
+
+.nuam .sc-message--slide-button-bg {
+  color: #fff;
+  background-color: #326295
+}
+
+.nuam .sc-message--slide-button:hover {
+  text-decoration: underline;
+  transition-duration: .2s;
+  -webkit-transition-duration: .2s;
+  -moz-transition-duration: .2s;
+  text-decoration: none
+}
+
+.nuam .sc-message--slide-navigation .fa-icon {
+  width: 16px
+}
+
+.nuam .fade-enter-active,
+.nuam .fade-leave-active {
+  -webkit-transition: opacity .5s;
+  transition: opacity .5s
+}
+
+.nuam .fade-enter,
+.nuam .fade-leave-to {
+  opacity: 0
+}
+
+.nuam .clickeable-image img {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex
+}
+
+.nuam .clickeable-image .sc-message--slide-slideshow-clickImg {
+  position: absolute;
+  top: 0;
+  right: 50%
+}
+
+.nuam .sc-message--slide-maximize {
+  width: auto;
+  height: 95%;
+  margin: 1px 3px 0 0
+}
+
+.nuam .sc-message--slide-icon-footer {
+  width: 100%;
+  height: 28px;
+  background-color: #ccc;
+  border-radius: 0 0 10px 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end
+}
+
+.nuam .score-title {
+  margin: 5px 0 5px 0;
+  font-size: 16px;
+  text-align: center;
+  color: #326295;
+  font-weight: 950
+}
+
+.nuam .score-subtitle {
+  margin: 10px 5px 7px 0;
+  text-align: center;
+  color: #326295
+}
+
+.nuam .score-options {
+  text-align: center;
+  min-height: 36px;
+  padding: 15px 0 10px 0
+}
+
+.nuam .score-description {
+  margin-top: 10px;
+  font-size: 12px;
+  text-align: center;
+  color: grey
+}
+
+.nuam .score-image {
+  margin-top: 10px;
+  margin-left: 22%
+}
+
+.nuam .score-comments textarea {
+  width: 85%;
+  height: 50px;
+  resize: none;
+  margin-top: -3px;
+  padding: 0 3px;
+  font-size: 13px
+}
+
+.nuam .anything-else {
+  height: 160px
+}
+
+.nuam .survey {
+  margin: 80px 20px 20px !important
+}
+
+.nuam #file-input {
+  cursor: pointer
+}
+
+.nuam .sc-user-input--file-icon-wrapper {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  outline: none;
+  cursor: pointer
+}
+
+.nuam .sc-user-input--file-icon {
+  height: 20px;
+  width: 20px;
+  -ms-flex-item-align: center;
+  align-self: center;
+  outline: none
+}
+
+.nuam .sc-user-input--file-icon:hover path {
+  -webkit-filter: contrast(15%);
+  filter: contrast(15%)
+}
+
+.nuam .sc-message--file {
+  border-radius: 6px;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.4;
+  -webkit-font-smoothing: subpixel-antialiased
+}
+
+.nuam .sc-message--content.sent .sc-message--file {
+  word-wrap: break-word
+}
+
+.nuam .sc-message--file-icon {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15px;
+  margin-bottom: 0
+}
+
+.nuam .sc-message--file-icon:hover {
+  opacity: .7
+}
+
+.nuam .sc-message--file-text {
+  padding: 17px 20px;
+  border-radius: 6px;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  -webkit-font-smoothing: subpixel-antialiased
+}
+
+.nuam .sc-message--file-name {
+  color: #fff;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 0;
+  font-size: x-small;
+  text-align: center
+}
+
+.nuam .sc-message--file-name a {
+  text-decoration: none;
+  color: #ece7e7
+}
+
+.nuam .sc-message--file-name a:hover {
+  color: #fff
+}
+
+.nuam .sc-message--content.sent .sc-message--file-text {
+  color: #fff;
+  background-color: #4e8cff;
+  word-wrap: break-word
+}
+
+.nuam .sc-message--content.received .sc-message--file {
+  color: #263238;
+  background-color: #f4f7f9;
+  margin-right: 40px
+}
+
+.nuam .sc-message--content.received .sc-message--file-name {
+  color: #000
+}
+
+.nuam .sc-message--content.received .sc-message--file a {
+  color: rgba(43, 40, 40, .7)
+}
+
+.nuam .sc-message--content.received .sc-message--file a:hover {
+  color: #0c0c0c
+}
+
+.nuam .sc-user-input--send-icon-wrapper {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  outline: none
+}
+
+.nuam .sc-user-input--send-icon-wrapper:focus {
+  outline: none
+}
+
+.nuam .sc-user-input--send-icon {
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+  -ms-flex-item-align: center;
+  align-self: center;
+  outline: none
+}
+
+.nuam .sc-user-input--send-icon:hover path {
+  -webkit-filter: contrast(15%);
+  filter: contrast(15%)
+}
+
+.nuam .sc-suggestions-row {
+  text-align: center;
+  background: inherit
+}
+
+.nuam .sc-suggestions-element {
+  margin: 3px;
+  padding: 5px 10px 5px 10px;
+  border: 1px solid;
+  border-radius: 15px;
+  font-size: 14px;
+  background: inherit;
+  cursor: pointer
+}
+
+.nuam .sc-message--system {
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 1.2;
+  white-space: pre-wrap;
+  -webkit-font-smoothing: subpixel-antialiased;
+  font-style: italic;
+  opacity: .55;
+  color: #333
+}
+
+.nuam .sc-message--system-meta {
+  color: #333;
+  font-size: xx-small;
+  margin-bottom: 0;
+  margin-top: 5px;
+  opacity: .5;
+  text-align: center
+}
+
+.nuam .sc-typing-indicator {
+  text-align: center;
+  padding: 17px 20px;
+  border-radius: 6px
+}
+
+.nuam .sc-typing-indicator span {
+  display: inline-block;
+  background-color: #b6b5ba;
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  margin-right: 3px;
+  -webkit-animation: bob 2s infinite;
+  animation: bob 2s infinite
+}
+
+.nuam .sc-typing-indicator span:first-child {
+  -webkit-animation-delay: -1s;
+  animation-delay: -1s
+}
+
+.nuam .sc-typing-indicator span:nth-child(2) {
+  -webkit-animation-delay: -.85s;
+  animation-delay: -.85s
+}
+
+.nuam .sc-typing-indicator span:nth-child(3) {
+  -webkit-animation-delay: -.7s;
+  animation-delay: -.7s
+}
+
+@-webkit-keyframes bob {
+  10% {
+    -webkit-transform: translateY(-10px);
+    transform: translateY(-10px);
+    background-color: #9e9da2
+  }
+
+  50% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    background-color: #b6b5ba
+  }
+}
+
+@keyframes bob {
+  10% {
+    -webkit-transform: translateY(-10px);
+    transform: translateY(-10px);
+    background-color: #9e9da2
+  }
+
+  50% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    background-color: #b6b5ba
+  }
+}
+
+.nuam .sc--whatsapp-button {
+  position: fixed;
+  bottom: 25px;
+  right: 25px
+}
+
+.nuam .sc--whatsapp-button img {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  cursor: pointer
+}
+
+.nuam .sc--whatsapp-button img:hover,
+.nuam .sc--whatsapp-pop-up {
+  -webkit-box-shadow: 0 0 27px 1.5px rgba(0, 0, 0, .2);
+  box-shadow: 0 0 27px 1.5px rgba(0, 0, 0, .2)
+}
+
+.nuam .sc--whatsapp-pop-up {
+  position: fixed;
+  bottom: 105px;
+  right: 25px;
+  max-width: 150px;
+  border-radius: 25px;
+  background-color: #fff;
+  font-family: Roboto, sans-serif
+}
+
+.nuam .sc--whatsapp-pop-up:after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #fff;
+  position: fixed;
+  right: 55px
+}
+
+.nuam .sc--whatsapp-pop-up-title {
+  width: 100%;
+  border-radius: 24px 24px 0 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 12px;
+  background-color: #000;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500
+}
+
+.nuam .sc--whatsapp-pop-up-body {
+  padding: 12px;
+  color: #414141;
+  font-size: 12px
+}
+
+.nuam .fade-enter-active,
+.nuam .fade-leave-active {
+  -webkit-transition: opacity .5 ease-out;
+  transition: opacity .5 ease-out
+}
+
+.nuam .fade-enter-from,
+.nuam .fade-leave-to {
+  opacity: 0
+}
+
+@media(max-width:450px) {
+  .nuam .sc--whatsapp-pop-up {
+    display: none
+  }
+}
+
+.nuam .sc-header {
+  position: relative;
+  background: #fff !important;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  padding: 10px 10px 0 20px !important;
+  min-height: 100px !important;
+  z-index: 1;
+  height: 100px
+}
+
+.nuam .sc-header--img {
+  max-width: 140px;
+  max-height: 50%;
+  width: auto;
+  height: auto;
+  -o-object-fit: contain;
+  object-fit: contain;
+  padding: 10px 0 5px 0 !important
+}
+
+.nuam .sc-header--img,
+.nuam .sc-header--title {
+  -ms-flex-item-align: start !important;
+  align-self: flex-start !important
+}
+
+.nuam .sc-header--title {
+  color: #3d3d3d !important;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  min-width: 120px;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 22px;
+  padding-bottom: 25px
+}
+
+.nuam .sc-header--chatbotName {
+  font-family: ptserif, sans-serif !important;
+  font-size: 19px;
+  color: #3d3d3d
+}
+
+.nuam .sc-header--subtitle {
+  font-family: ptserif, sans-serif !important;
+  font-size: 14px;
+  font-weight: 400;
+  display: block
+}
+
+.nuam .sc-header--close-button {
+  position: absolute !important;
+  width: 60px !important;
+  top: 10px !important;
+  right: 10px !important;
+  background-image: url(https://chatbot.gatblac.com/static/avatar/gatblac-new/arrow.png);
+  background-size: 15px 10px !important;
+  background-position: 50% 32% !important;
+  -webkit-box-sizing: border-box !important;
+  box-sizing: border-box !important;
+  background-repeat: no-repeat !important;
+  padding: 0 0 100px 0 !important;
+  margin: -10px -9px 0 0 !important
+}
+
+@media(max-width:450px) {
+  .nuam .sc-header {
+    border-radius: 0;
+    min-height: 100px !important
+  }
+
+  .nuam .sc-header--title {
+    color: #3d3d3d !important;
+    -ms-flex-item-align: start !important;
+    align-self: flex-start !important;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    min-width: 120px;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 22px;
+    padding-bottom: 25px
+  }
+
+  .nuam .sc-header--chatbotName {
+    font-family: ptserif, sans-serif !important;
+    font-size: 23px;
+    color: #3d3d3d
+  }
+
+  .nuam .sc-header--img {
+    max-width: 165px
+  }
+}
+
+.nuam .form-dialog {
+  height: 100%;
+  background-color: rgba(0, 0, 0, .6);
+  width: 100%;
+  position: absolute;
+  top: 0;
+  z-index: 1000000;
+  border-radius: 8px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center
+}
+
+.nuam .sc-clean {
+  font-family: degular-gb, sans-serif !important;
+  font-size: 14px;
+  font-weight: 500
+}
+
+.nuam .sc-launcher {
+  width: 67px !important;
+  height: 67px !important;
+  right: 24px !important;
+  bottom: 24px !important
+}
+
+.nuam .sc-launcher:before {
+  width: 195px !important;
+  height: 67px !important
+}
+
+.nuam .sc-closed-icon,
+.nuam .sc-open-icon {
+  width: 67px !important;
+  height: 67px !important;
+  right: 24px !important;
+  bottom: 24px !important;
+  background-size: 70px 70px !important;
+  background-color: #181818;
+  border-radius: 50px;
+  background-position: 50% !important;
+  background-repeat: no-repeat !important
+}
+
+.nuam .sc-closed-icon {
+  -webkit-filter: brightness(70%) !important;
+  filter: brightness(70%) !important
+}
+
+.nuam .sc-new-icon {
+  position: fixed !important;
+  -webkit-transition: opacity .1s ease-in-out, width .5s ease, -webkit-transform .1s ease-in-out;
+  transition: opacity .1s ease-in-out, width .5s ease, -webkit-transform .1s ease-in-out;
+  transition: opacity .1s ease-in-out, transform .1s ease-in-out, width .5s ease;
+  transition: opacity .1s ease-in-out, transform .1s ease-in-out, width .5s ease, -webkit-transform .1s ease-in-out;
+  background-size: 70px 70px !important;
+  background-position: 50% !important;
+  z-index: 1
+}
+
+.nuam .sc-new-icon,
+.nuam .sc-new-icon-ayuda {
+  width: 67px !important;
+  height: 67px !important;
+  right: 24px !important;
+  bottom: 24px !important;
+  background-color: #181818;
+  border-radius: 50px;
+  background-repeat: no-repeat !important
+}
+
+.nuam .sc-new-icon-ayuda {
+  position: fixed;
+  color: #fff;
+  -webkit-transition: width .5s ease;
+  transition: width .5s ease;
+  background-image: url(https://chatbot.gatblac.com/static/avatar/nuam/nuam-te_ayudo.svg);
+  background-size: 165px 125px !important;
+  background-position: -4% 65% !important
+}
+
+.nuam .sc-new-icon-ayuda,
+.nuam .sc-new-icon-ayuda.active {
+  -webkit-filter: brightness(100%) !important;
+  filter: brightness(100%) !important
+}
+
+.nuam .sc-new-icon-ayuda.active {
+  width: 195px !important
+}
+
+.nuam .form-body-scroll {
+  color: #3d3d3d;
+  margin: 20px;
+  background-color: #fff;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 0 0 0 0;
+  min-height: 410px !important;
+  max-width: 326px
+}
+
+.nuam .form-title {
+  color: #fd441e !important;
+  font-family: ptserif, sans-serif !important;
+  font-weight: 700;
+  font-size: 15px
+}
+
+.nuam .form__field label {
+  background-color: #0a0e31;
+  border-right: 0 !important
+}
+
+.nuam .container__input_phone {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1
+}
+
+.nuam .container__input_phone input:first-child {
+  border-radius: 0 !important;
+  padding-right: 0 !important;
+  -webkit-box-flex: 0 !important;
+  -ms-flex: 0 !important;
+  flex: 0 !important;
+  width: 28px !important
+}
+
+.nuam .button-secondary {
+  border: 0 solid #0a0e31;
+  color: #181818;
+  font-family: ptserif, sans-serif !important;
+  font-weight: 700;
+  width: 33% !important;
+  border-radius: 4px 20px 4px 20px !important;
+  width: auto !important;
+  padding: 0 30px;
+  font-size: 14px
+}
+
+.nuam .button-secondary:hover {
+  background-color: #fff;
+  color: #ff411c !important;
+  border: 0 solid #0a0e31;
+  font-weight: 700
+}
+
+.nuam .button-secondary:active {
+  color: #b22a09
+}
+
+.nuam .button-primary {
+  background-color: #181818;
+  border: 0 solid #0a0e31;
+  font-family: ptserif, sans-serif !important;
+  border-radius: 4px 20px 4px 20px !important;
+  font-weight: 700 !important;
+  width: auto !important;
+  padding: 0 30px;
+  font-size: 14px
+}
+
+.nuam .button-primary:hover {
+  background-color: #ff411c;
+  border: 0 solid #316094;
+  font-weight: 400 !important
+}
+
+.nuam .button-primary:active {
+  background-color: #b22a09
+}
+
+.nuam .form-button-option {
+  border: 0 solid #181818;
+  color: #fff;
+  background-color: #181818;
+  border-radius: 4px 20px 4px 20px !important;
+  font-family: ptserif, sans-serif !important;
+  font-size: 15px
+}
+
+.nuam .form-button-option-selected,
+.nuam .form-button-option:hover {
+  background-color: #ff411c !important;
+  color: #fff !important
+}
+
+.nuam .form-button-option:focus {
+  background-color: #0a0e31
+}
+
+.nuam #form_estilos {
+  height: 35px;
+  -webkit-box-flex: 0;
+  -ms-flex: none;
+  flex: none;
+  -webkit-appearance: button;
+  border-radius: 25px;
+  padding: 0 5%;
+  background: url(https://chatbot.gatblac.com/static/avatar/bk/bkpostventa/arrow.png) no-repeat 97% #ecefef;
+  background-size: 10%;
+  cursor: pointer;
+  outline: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none
+}
+
+.nuam #combo_option {
+  margin-left: 10px
+}
+
+.nuam select.formulario_combo {
+  margin: 5px 0 15px 20px;
+  width: 75%
+}
+
+.nuam .form-title-img {
+  background: url() no-repeat;
+  background-size: 100%;
+  width: 215px;
+  height: 95px;
+  margin-top: 10px
+}
+
+.nuam .form-box-body {
+  height: 370px;
+  overflow-y: auto
+}
+
+.nuam .form-box-button,
+.nuam .form-components.scroll .form-box-button {
+  padding: 10px 0 0 0;
+  text-align: center;
+  min-height: 41px;
+  margin-bottom: 0 !important
+}
+
+.nuam .form-components.scroll .form-box-button {
+  width: 285px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center
+}
+
+.nuam .score-subtitle,
+.nuam .score-title {
+  color: #3d3d3d !important
+}
+
+.nuam .score-subtitle {
+  margin: 15px 0 0 0;
+  font-size: 14px
+}
+
+.nuam .score-options {
+  padding: 15px 0 0 0
+}
+
+.nuam .score-comments {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-top: 10px
+}
+
+.nuam .score-comments textarea {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  font-family: degular-gb, sans-serif !important;
+  font-weight: 400 !important;
+  border-radius: 4px 20px 4px 20px !important;
+  -webkit-transition: outline .3s ease-in-out !important;
+  transition: outline .3s ease-in-out !important;
+  border: none;
+  resize: none !important;
+  padding: 0 3px !important;
+  font-size: 13px !important;
+  background-color: #f4f4f4 !important;
+  width: 85% !important;
+  height: 50px !important;
+  overflow: hidden !important;
+  text-indent: 2px !important;
+  padding: 10px !important;
+  color: #7a7a7a
+}
+
+.nuam .score-comments textarea:focus-within,
+.nuam .score-comments textarea:hover {
+  border: 1px solid #ff411c !important
+}
+
+.nuam .score-comments-textarea--filled {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  font-family: degular-gb, sans-serif !important;
+  font-weight: 400 !important;
+  border-radius: 4px 20px 4px 20px !important;
+  -webkit-transition: outline .3s ease-in-out !important;
+  transition: outline .3s ease-in-out !important;
+  border: 1px solid #3d3d3d !important;
+  resize: none !important;
+  padding: 0 3px !important;
+  font-size: 13px !important;
+  background-color: #f4f4f4 !important;
+  width: 85% !important;
+  height: 50px !important;
+  overflow: hidden !important;
+  text-indent: 2px !important;
+  padding: 10px !important;
+  color: #3d3d3d !important
+}
+
+.nuam .form-text-title {
+  color: #3d3d3d;
+  margin-bottom: 20px !important;
+  font-family: degular-gb, sans-serif !important;
+  font-size: 15px;
+  line-height: 1.3
+}
+
+.nuam .vue-star-rating-star {
+  border-color: #000;
+  margin: 2px
+}
+
+.nuam .anything-else .form-title {
+  height: 26px !important
+}
+
+.nuam .anything-else .score-subtitle {
+  height: 24px !important
+}
+
+.nuam .anything-else .form-box-button-score {
+  height: 41px !important
+}
+
+.nuam .form-body-scroll .form-title {
+  height: 26px
+}
+
+.nuam .form-body-scroll .score-subtitle {
+  height: 30px !important;
+  letter-spacing: normal !important
+}
+
+.nuam .form-body-scroll .score-image {
+  height: 42px !important
+}
+
+.nuam .form-body-scroll .score-options {
+  height: 51px !important
+}
+
+.nuam .form-body-scroll .score-comments {
+  height: 67px !important
+}
+
+.nuam .form-body-scroll .form-box-button {
+  height: 51px !important
+}
+
+.nuam .close-delete-btn {
+  background-color: #0a0e31
+}
+
+.nuam .form__field label {
+  border-radius: 4px 0 0 20px;
+  background-color: #f4f4f4 !important
+}
+
+.nuam .form__field input {
+  color: #3d3d3d;
+  background-color: #f4f4f4;
+  font-size: 15px
+}
+
+.nuam .form__field-input--filled,
+.nuam .form__field input {
+  font-family: degular-gb, sans-serif !important;
+  font-weight: 400;
+  border-radius: 4px 20px 4px 20px;
+  -webkit-transition: outline .3s ease-in-out;
+  transition: outline .3s ease-in-out;
+  padding: 7px 10px
+}
+
+.nuam .form__field-input--filled {
+  color: #3d3d3d !important
+}
+
+.nuam .form__field textarea {
+  background-color: #f4f4f4 !important;
+  color: #7a7a7a
+}
+
+.nuam .form__field-textarea--filled,
+.nuam .form__field textarea {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-family: degular-gb, sans-serif !important;
+  font-weight: 400;
+  border-radius: 4px 20px 4px 20px;
+  -webkit-transition: outline .3s ease-in-out;
+  transition: outline .3s ease-in-out;
+  border: none;
+  resize: none;
+  padding: 0 3px;
+  height: 90px;
+  width: 95%;
+  overflow: hidden;
+  text-indent: 2px;
+  padding: 10px
+}
+
+.nuam .form__field-textarea--filled {
+  font-size: 13px;
+  background-color: #f4f4f4;
+  color: #3d3d3d !important
+}
+
+.nuam .form__field input::-webkit-input-placeholder {
+  color: #8f8f8f
+}
+
+.nuam .form__field input::-moz-placeholder {
+  color: #8f8f8f
+}
+
+.nuam .form__field input:-ms-input-placeholder {
+  color: #8f8f8f
+}
+
+.nuam .form__field input::-ms-input-placeholder {
+  color: #8f8f8f
+}
+
+.nuam .form__field input::placeholder {
+  color: #8f8f8f
+}
+
+.nuam .form__field input:focus {
+  outline: 0
+}
+
+.nuam .container__input_phone:hover input,
+.nuam .form__field input:hover {
+  background-color: #f4f4f4 !important;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  text-decoration: none;
+  outline: 0
+}
+
+.nuam .form__field,
+.nuam .form__recatcha {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: #f4f4f4;
+  border-radius: 4px 20px 4px 20px;
+  -webkit-transition: border-color .3s, -webkit-box-shadow .3s;
+  transition: border-color .3s, -webkit-box-shadow .3s;
+  transition: border-color .3s, box-shadow .3s;
+  transition: border-color .3s, box-shadow .3s, -webkit-box-shadow .3s
+}
+
+.nuam .custom-recaptcha {
+  -webkit-transform: scale(.8);
+  transform: scale(.8);
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  margin: 20px
+}
+
+.nuam .form__field--filled {
+  border: 1px solid #7a7a7a
+}
+
+.nuam .form__field:focus-within,
+.nuam .form__field:hover {
+  border: 1px solid #ff411c !important
+}
+
+.nuam .sc-user-input--text {
+  font-family: degular-gb, sans-serif !important
+}
+
+.nuam .form_label {
+  list-style-type: none;
+  color: #181818;
+  font-size: 15px;
+  padding-left: 20px;
+  font-weight: 600;
+  font-family: ptserif, sans-serif !important;
+  margin-top: 15px;
+  line-height: normal
+}
+
+.nuam .hide-icon-new {
+  color: #0a0e31;
+  position: absolute;
+  right: 3px;
+  top: -9px;
+  margin-top: 5px;
+  background: url(https://chatbot.gatblac.com/static/avatar/nuam/ico-close.svg);
+  background-size: "100%";
+  background-repeat: "no-repeat";
+  height: 20px;
+  width: 20px;
+  border-radius: 6px
+}
+
+.nuam .hide-icon-new:hover {
+  -webkit-box-shadow: 0 0 10px hsla(0, 0%, 47.8%, .5) !important;
+  box-shadow: 0 0 10px hsla(0, 0%, 47.8%, .5) !important
+}
+
+.nuam .label-hover {
+  display: inline-block;
+  -webkit-transition: color .3s, -webkit-transform .3s;
+  transition: color .3s, -webkit-transform .3s;
+  transition: color .3s, transform .3s;
+  transition: color .3s, transform .3s, -webkit-transform .3s
+}
+
+.nuam .label-hover:hover {
+  color: #0a0e31 !important;
+  -webkit-transform: scale(1.2) !important;
+  transform: scale(1.2) !important
+}
+
+.nuam .icon-padding {
+  padding: 15px 4px 0 12px !important;
+  -webkit-transition: fill .3s !important;
+  transition: fill .3s !important
+}
+
+.nuam .label-hover:hover .icon-padding {
+  fill: #0a0e31 !important
+}
+
+.nuam .form-text-title-h1 {
+  color: #fd441e !important;
+  font-family: ptserif, sans-serif !important;
+  font-size: 24px !important;
+  font-weight: 600;
+  margin: 0 0 15px 0
+}
+
+.nuam .requered_text {
+  color: red;
+  display: inline;
+  font-family: ptserif, sans-serif !important;
+  font-weight: 400
+}
+
+.nuam .padding-title {
+  padding: 5% 0 8% 0 !important;
+  margin: 0 !important
+}
+
+.nuam .padding-title-score {
+  padding: 5% 0 5% 0 !important;
+  margin: 0 !important;
+  text-align: center !important;
+  border-bottom: 1.5px solid #d8d9da !important
+}
+
+.nuam .form-text-title-h1-contact {
+  color: #fd441e !important;
+  font-family: ptserif, sans-serif !important;
+  font-size: 24px !important;
+  font-weight: 700
+}
+
+.nuam .padding-title-contact {
+  padding: 2% 0 0 0;
+  text-align: center;
+  border-bottom: 0 solid #d8d9da
+}
+
+.nuam .icon-form {
+  color: #8f8f8f;
+  display: inline !important
+}
+
+.nuam .icon-form,
+.nuam .icon-form--filled {
+  margin: 2px 1px 5px 1px !important;
+  width: 15px !important;
+  height: 15px !important
+}
+
+.nuam .icon-form--filled {
+  color: #3d3d3d !important
+}
+
+.nuam .form__checkbox {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  width: 60% !important;
+  height: 60% !important;
+  border-radius: 5px !important;
+  border: 1px solid #ff411c !important;
+  background-color: #fff !important;
+  margin-right: 8px !important;
+  cursor: pointer;
+  margin: 7px 3px 1px 4px !important;
+  position: relative !important
+}
+
+.nuam .form__checkbox:checked {
+  background-color: #0e9753 !important;
+  border-color: #0e9753 !important
+}
+
+.nuam .form__checkbox:hover {
+  background-color: #f8e2da !important;
+  border-color: #ff411c !important
+}
+
+.nuam .form__checkbox:active {
+  background-color: #ff411c !important;
+  border-color: #ff411c !important
+}
+
+.nuam .form__checkbox:checked:hover {
+  background-color: #0e9753 !important;
+  border-color: #0e9753 !important
+}
+
+.nuam .icon-checkmark {
+  color: #fff
+}
+
+.nuam .checkbox-label {
+  cursor: pointer;
+  position: relative;
+  padding-left: 24px
+}
+
+.nuam .checkbox-label,
+.nuam .custom-checkbox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center
+}
+
+.nuam .custom-checkbox {
+  position: absolute;
+  left: 0;
+  width: 16px !important;
+  height: 16px !important;
+  border-radius: 5px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #ff411c;
+  background-color: #fff;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center
+}
+
+.nuam .form__field_check label {
+  margin-top: 15px;
+  margin-left: 2px
+}
+
+.nuam .checkbox-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 25px;
+  height: 25px
+}
+
+.nuam .checkmark-gb {
+  font-size: 20px !important;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  line-height: 0
+}
+
+.nuam .checkmark-gb,
+.nuam .form__checkbox:checked~.icon-checkmark {
+  color: #fff !important
+}
+
+.nuam .form__checkbox:hover~.icon-checkmark {
+  color: #f8e2da !important
+}
+
+.nuam .form__checkbox:active~.icon-checkmark {
+  color: #ff411c !important
+}
+
+.nuam .form__checkbox:checked:hover~.icon-checkmark {
+  color: #fff !important
+}
+
+.nuam .info-icon {
+  position: relative;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer !important;
+  margin: 3px 0 0 4px !important;
+  border: 1px solid #3d3d3d !important;
+  padding: 0 3px 0 3px !important;
+  border-radius: 4px !important;
+  font-size: 8px !important
+}
+
+.nuam .info-icon__tooltip {
+  display: none;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  background-color: #3d3d3d;
+  color: #f4f4f4;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: normal;
+  max-width: 200px;
+  text-align: center;
+  z-index: 10;
+  word-wrap: break-word;
+  width: 200px;
+  border: 1px solid #ff411c
+}
+
+.nuam .info-icon__tooltip a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 900;
+  font-size: 14px
+}
+
+.nuam .info-icon__tooltip a:hover {
+  color: #ff411c;
+  font-weight: 900;
+  font-size: 14px
+}
+
+.nuam .info-icon__tooltip a:active {
+  color: #f0f0f0;
+  font-weight: 900;
+  font-size: 14px
+}
+
+.nuam .info-icon:hover .info-icon__tooltip {
+  display: block
+}
+
+.nuam .form__label-text {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 100%;
+  font-size: 11px;
+  font-family: degular-gb, sans-serif !important;
+  line-height: 1.4;
+  letter-spacing: normal !important
+}
+
+.nuam .form__label-text a {
+  color: #3d3d3d;
+  text-decoration: none;
+  font-weight: 500 !important;
+  letter-spacing: normal !important
+}
+
+.nuam .form__label-text a:hover {
+  color: #ff411c
+}
+
+.nuam .form__label-text a:active,
+.nuam .form__label-text a:visited {
+  color: #3d3d3d
+}
+
+.nuam .form__label-text a:visited:hover {
+  color: #ff411c
+}
+
+.nuam .sc--vertical-launcher-icon {
+  width: 40.67px !important;
+  height: 45px !important;
+  background-size: 60px 60px !important;
+  background-position: 50%
+}
+
+.nuam .sc--vli-active,
+.nuam .sc--vli-close,
+.nuam .sc--vli-minimize,
+.nuam .sc--vli-new {
+  background-image: url(https://chatbotqa.gatblac.com/static/avatar/nuam/Avatar-1.svg)
+}
+
+.nuam .margin_btn {
+  margin: 2% 0 0 0 !important
+}
+
+.nuam .sc--vertical-launcher {
+  height: 50px !important;
+  background-color: #181818;
+  position: fixed;
+  right: 0;
+  top: 85% !important;
+  cursor: pointer;
+  border-radius: 0 0 0 20px !important
+}
+
+.nuam .survey {
+  margin: 0 20px !important;
+  border: 0 solid #e0e0e0
+}
+
+.nuam .form-body-scroll.survey {
+  margin: 20px !important;
+  padding-bottom: 0 !important
+}
+
+.nuam .form-body-scroll.survey .form-box-button {
+  padding: 10px 0 0 0;
+  text-align: center;
+  min-height: 41px;
+  width: 300px;
+  margin-top: 15px !important;
+  margin-bottom: 0 !important;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  gap: 10px
+}
+
+.nuam .form-body-scroll.survey>div:last-child {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important
+}
+
+.nuam .form-box-button-score {
+  padding: 10px 0 0 0;
+  text-align: center;
+  min-height: 41px;
+  width: 250px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-bottom: 0 !important;
+  gap: 10px
+}
+
+@media(max-width:450px) {
+  .nuam .form-dialog {
+    height: 100%;
+    background-color: rgba(0, 0, 0, .6);
+    width: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 1000000;
+    border-radius: 0
+  }
+}
+
+.nuam .sc-message--content.received .sc-message--data {
+  color: #3d3d3d;
+  background-color: #fff;
+  font-size: 15px
+}
+
+.nuam .sc-message--content.received .sc-message--meta {
+  margin-top: 5px
+}
+
+.nuam .sc-message--content.sent .sc-message--box {
+  color: #3d3d3d;
+  background-color: #e0e0e0;
+  -webkit-box-shadow: 1px 1px 1px 0 hsla(0, 0%, 83.9%, .69) !important;
+  box-shadow: 1px 1px 1px 0 hsla(0, 0%, 83.9%, .69) !important;
+  font-size: 15px
+}
+
+.nuam .sc-message--box code {
+  font-family: degular-gb, sans-serif !important
+}
+
+.nuam .sc-message--content.executive .sc-message--box .sc-message--data,
+.nuam .sc-message--slide-text,
+.nuam .sc-message--slide-title {
+  color: #3d3d3d
+}
+
+.nuam .sc-message--system,
+.nuam .sc-message--system-meta {
+  color: #000 !important
+}
+
+.nuam .info_contacto_ejecu {
+  color: grey;
+  font-size: 12px;
+  margin: 0 0 10px 10px;
+  width: 90%
+}
+
+.nuam .info_contacto_ejecu img {
+  width: 14px;
+  padding: 0 5px
+}
+
+.nuam .va_icono_chat_fafa img {
+  width: 35%;
+  padding: 7px 0 5px 0
+}
+
+.nuam #btn-positivo {
+  background-color: #9df4d9;
+  color: #3d3d3d
+}
+
+.nuam #btn-positivo:hover {
+  opacity: .7
+}
+
+.nuam #btn-positivo:focus {
+  background-color: #9df4d9;
+  color: #3d3d3d
+}
+
+.nuam .btn-negativo {
+  background-color: #ffa47f;
+  color: #3d3d3d
+}
+
+.nuam .btn-negativo:hover {
+  opacity: .7
+}
+
+.nuam .btn-negativo:focus {
+  background-color: #ffa47f;
+  color: #3d3d3d
+}
+
+.nuam .calificacion-text {
+  width: 90px;
+  padding: 2px 3px;
+  color: #3d3d3d !important;
+  border: 1px solid #9df4d9;
+  background-color: #9df4d9;
+  font-size: 9px;
+  margin: 1px 4px 7px 0;
+  float: left;
+  text-align: center
+}
+
+.nuam .img-btn-positivo {
+  margin: -3px
+}
+
+.nuam .img-btn-negativo,
+.nuam .img-btn-positivo {
+  width: 14px;
+  height: auto;
+  color: #3d3d3d !important;
+  display: inline !important
+}
+
+.nuam .img-btn-negativo {
+  margin: -4px
+}
+
+.nuam .padding-tp-hora {
+  padding-top: 3px !important;
+  color: #3d3d3d !important
+}
+
+.nuam .btn-calificacion {
+  width: 23px;
+  height: 23px;
+  margin: -3px 4px 7px 0;
+  border-radius: 50px;
+  text-transform: uppercase;
+  float: left;
+  cursor: pointer;
+  -webkit-transition: all .3s ease;
+  transition: all .3s ease;
+  padding: 0;
+  line-height: normal;
+  font-size: small
+}
+
+.nuam .sc-message--slide-page-active {
+  color: #fd441e !important
+}
+
+.nuam .sc-message--slide-navigation {
+  background-color: #f4f4f4 !important
+}
+
+.nuam .sc-message--slide-left,
+.nuam .sc-message--slide-left-no-image,
+.nuam .sc-message--slide-right,
+.nuam .sc-message--slide-right-no-image {
+  color: #3d3d3d !important
+}
+
+.nuam .sc-message--slide-title {
+  color: #fd441e !important
+}
+
+.nuam .sc-message--slide-text {
+  color: #3d3d3d !important;
+  margin: 3px 3px 3px 10px
+}
+
+.nuam .sc-message--slide-control {
+  margin: 10px 0
+}
+
+.nuam .sc-message--slide-control-item {
+  color: #3d3d3d !important;
+  font-size: 15px
+}
+
+.nuam .sc-message--slide-control-item a {
+  font-size: 15px;
+  color: #3d3d3d !important;
+  background-color: #f4f4f4 !important
+}
+
+.nuam .sc-message--slide-control-item a:hover {
+  background: #fd441e !important;
+  color: #fff !important
+}
+
+.nuam ::-webkit-scrollbar,
+.nuam ::-webkit-scrollbar-track {
+  background: transparent !important
+}
+
+.nuam ::-webkit-scrollbar {
+  width: 4px !important;
+  height: 4px !important
+}
+
+.nuam ::-webkit-scrollbar-thumb {
+  background: #ff3700 !important;
+  border-radius: 4px !important
+}
+
+.nuam ::-webkit-scrollbar-track-piece {
+  display: none
+}
+
+.nuam .sc-chat-window {
+  border-radius: 9px
+}
+
+@media(max-width:450px) {
+  .nuam .sc-chat-window {
+    border-radius: 0
+  }
+}
+
+.nuam .sc-message--button-subtitle {
+  color: #3d3d3d !important;
+  font-family: degular-gb, sans-serif !important;
+  font-size: 15px;
+  font-weight: 500
+}
+
+.nuam .sc-message--button-text {
+  color: #fd441e !important
+}
+
+.nuam .sc-message--button-control-item {
+  color: #3d3d3d !important;
+  text-align: left !important;
+  list-style: none !important;
+  font-weight: 400
+}
+
+.nuam .sc-message--button-control-item a {
+  color: #3d3d3d !important;
+  background-color: #f4f4f4 !important;
+  font-family: degular-gb, sans-serif !important;
+  font-size: 15px;
+  font-weight: 500
+}
+
+.nuam .sc-message--button-control-item a:hover {
+  background-color: #fd441e !important;
+  color: #fff !important;
+  font-weight: 500
+}
+
+.nuam .empresa-desarrolloGB a {
+  font-weight: 700
+}
+
+.nuam .empresa-desarrolloGB a,
+.nuam .texto-desarrolloGB {
+  font-family: degular-gb, sans-serif !important;
+  color: #181818
+}
+
+.nuam .texto-desarrolloGB {
+  font-weight: 100
+}
+
+.nuam .contenido-desarrolloGBxAI {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important
+}
+
+.nuam .texto-desarrolloGBxAI {
+  margin-right: 4px;
+  margin-left: 4px;
+  color: #181818;
+  font-weight: 100
+}
+
+.nuam .score-image {
+  margin-left: 0 !important;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center
+}

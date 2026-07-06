@@ -1,0 +1,41 @@
+{% extends "../base.html" %}
+{% load static %}
+
+{% block title %}Inicio Auditor tributario{% endblock title %}
+
+{% block content %}
+<div class="auditor-layout">
+
+    <div class="profile-column">
+            <i class="bi bi-person-circle profile-icon2"></i>
+            <div class="profile-info">
+                <p class="profile-label">{{ user.first_name}} {{user.last_name}}</p>
+                <p class="profile-email">{{ user.email }}</p>
+            </div>
+        </div>
+
+    <div class="auditor-column">
+        <button class="admin-btn">
+            <i class="bi bi-check2-circle"></i> Validación de calificaciones tributarias
+        </button>
+
+        <button class="admin-btn">
+            <i class="bi bi-check2-square"></i> Validación de instrumentos financieros
+        </button>
+
+        <button class="admin-btn">
+            <i class="bi bi-clock-history"></i> Acceso a historial
+        </button>
+    </div>
+
+    <div class="auditor-column">
+        <button class="admin-btn">
+            <i class="bi bi-journal-text"></i> Registro de auditoria
+        </button>
+
+        <button class="admin-btn">
+            <i class="bi bi-arrow-counterclockwise"></i> Solicitud de restauraciones de datos
+        </button>
+    </div>
+</div>
+{% endblock content %}
