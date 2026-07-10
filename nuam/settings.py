@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'nuam.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'nuam-database',
+        'NAME': 'nuamdb',
         'USER': 'admin',
         'PASSWORD': 'Inacap.2026',
         'HOST': 'nuam-database.c6xljfguqnwo.us-east-1.rds.amazonaws.com',
