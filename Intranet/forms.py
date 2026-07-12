@@ -1,6 +1,5 @@
 from django import forms
-from .models import *
-from django.contrib.auth.models import Group
+from .models import User, calificacion_tributaria, instrumento_financiero, factor_calificacion, solicitud
 
 clientes = User.objects.filter(
     groups__name="Cliente"
@@ -28,16 +27,16 @@ class CalificacionTributariaForm(forms.ModelForm):
         ]
         widgets = {
             'cliente': forms.Select(attrs={
-                'class': 'form-control',
+                'class': 'form-select',
                 'id': 'cliente'
             }),
             'mercado': forms.Select(attrs={
-                'class': 'form-control',
+                'class': 'form-select',
                 'id': 'mercado',
                 'name': 'mercado',
             }),
             'instrumento': forms.Select(attrs={
-                'class': 'form-control',
+                'class': 'form-select',
                 'id': 'instrumento',
                 'name': 'instrumento',
             }),
@@ -85,6 +84,10 @@ class CalificacionTributariaForm(forms.ModelForm):
                 'min': "1970",
                 'max': "2200",
                 'required': True
+            }),
+            'isfut': forms.CheckboxInput(attrs={
+                'class': 'form-check-input',
+                'id': 'isfut'
             })
         }
 

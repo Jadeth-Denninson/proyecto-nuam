@@ -404,18 +404,23 @@ def crear_calificacion(request):
               "categorias_niveladas": categorias_niveladas,
               "factores_sueltos": factores_sueltos_data,
           })
+      else:
+        print("=== FORMULARIO INVÁLIDO ===")
+        print("Errores de validación:", form.errors)
+    else:
+      form = CalificacionTributariaForm()
+
     print("=== CREAR CALIFICACION ===")
     print("METODO:", request.method)
     print("POST:", request.POST)
 
-    categorias_niveladas = build_categorias_niveladas()
-    # GET normal
+    # Para GET o cuando el formulario POST es inválido
     return render(request, 'Creates/calificaciones.html', {
-        "form_calificacion": CalificacionTributariaForm(),
+        "form_calificacion": form,
         "categorias_niveladas": categorias_niveladas,
         "factores_sueltos": [
-        {"obj": f, "valor": 0} for f in factores_sueltos
-    ],
+            {"obj": f, "valor": 0} for f in factores_sueltos
+        ],
     })
 
 @login_required()
