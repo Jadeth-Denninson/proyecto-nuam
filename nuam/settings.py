@@ -96,6 +96,9 @@ COSMOS_DATABASE = "Nuam-Cosmos"
 
 COSMOS_CONTAINER = "Container1"
 
+print("COSMOS ENDPOINT:", COSMOS_ENDPOINT)
+print("COSMOS KEY INICIO:", COSMOS_KEY[:10])
+
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
