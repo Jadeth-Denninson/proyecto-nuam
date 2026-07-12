@@ -404,7 +404,11 @@ def crear_calificacion(request):
               "categorias_niveladas": categorias_niveladas,
               "factores_sueltos": factores_sueltos_data,
           })
+    print("=== CREAR CALIFICACION ===")
+    print("METODO:", request.method)
+    print("POST:", request.POST)
 
+    categorias_niveladas = build_categorias_niveladas()
     # GET normal
     return render(request, 'Creates/calificaciones.html', {
         "form_calificacion": CalificacionTributariaForm(),
