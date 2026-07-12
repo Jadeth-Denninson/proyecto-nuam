@@ -13,7 +13,7 @@ function editarSeleccionado() {
     alert("Debe seleccionar una calificación primero.");
     return;
   }
-  window.location.href = `http://127.0.0.1:8000/gestores/calificaciones/editar/${id}`;
+  window.location.href = `/gestores/calificaciones/editar/${id}`;
 }
 
 function eliminarSeleccionado() {
@@ -23,7 +23,7 @@ function eliminarSeleccionado() {
     return;
   }
   if (confirm("¿Está seguro de eliminar la calificación seleccionada?")) {
-    window.location.href = `http://127.0.0.1:8000/gestores/calificaciones/eliminar/${id}`;
+    window.location.href = `/gestores/calificaciones/eliminar/${id}`;
   }
 }
 
