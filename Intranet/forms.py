@@ -178,3 +178,24 @@ class formSolicitud(forms.ModelForm):
                 "style": "color: white;"
             })
         }
+
+class formSolicitudCliente(forms.ModelForm):
+    class Meta:
+        model = solicitud
+        fields = ["calificacion", "motivo"]
+        widgets = {
+            "calificacion": forms.Select(attrs={
+                "class": "form-select text-white bg-dark border-secondary",
+                "style": "color: white;"
+            }),
+            "motivo": forms.Textarea(attrs={
+                "rows": 4,
+                "class": "form-control text-white bg-dark border-secondary",
+                "placeholder": "Escribe el motivo de la consulta...",
+                "style": "color: white;"
+            })
+        }
+    def __init__(self, cliente=None, *args, **kwargs):
+        super(formSolicitudCliente, self).__init__(*args, **kwargs)
+        if cliente:
+            self.fields['calificacion'].queryset = calificacion_tributaria.objects.filter(cliente=cliente)

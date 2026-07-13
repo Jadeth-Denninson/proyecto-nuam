@@ -40,7 +40,6 @@
                 <th>ID</th>
                 <th>Usuario</th>
                 <th>Rol</th>
-                <th>Calificación</th>
                 <th>Motivo</th>
                 <th>Fecha</th>
                 <th></th>
@@ -53,13 +52,6 @@
                 <td>{{ solicitud.solicitud_id }}</td>
                 <td>{{ solicitud.usuario }}</td>
                 <td>{{ solicitud.group }}</td>
-                <td>
-                    {% if solicitud.calificacion %}
-                        {{ solicitud.calificacion.descripcion }} ({{ solicitud.calificacion.secuencia_evento }})
-                    {% else %}
-                        -
-                    {% endif %}
-                </td>
                 <td>{{ solicitud.motivo }}</td>
                 <td>{{ solicitud.fecha }}</td>
                 <td>
