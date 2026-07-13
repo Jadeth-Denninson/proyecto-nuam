@@ -4,58 +4,67 @@
 {% block title %}Inicio Cliente{% endblock title %}
 
 {% block content %}
-<div class="broker-layout">
+<div class="auditor-layout">
 
     <div class="profile-column">
         <i class="bi bi-person-circle profile-icon2"></i>
         <div class="profile-info">
-            <p class="profile-label">{{ user.first_name}} {{user.last_name}}</p>
+            <p class="profile-label">{{ user.first_name }} {{ user.last_name }}</p>
             <p class="profile-email">{{ user.email }}</p>
         </div>
     </div>
 
-    <div class="broker-column left-column">
-        <div>
-            <a class="dropdown-item admin-btn py-3 w-100 mb-3" href="{% url 'cliente_calificaciones' %}">
-                <i class="bi bi-card-checklist"></i> Mis Calificaciones Tributarias
-            </a>
-        </div>
-        <div>
-            <a class="dropdown-item admin-btn py-3 w-100 mb-3" href="{% url 'cliente_agregar_solicitud' %}">
-                <i class="bi bi-envelope-plus"></i> Nueva Solicitud
-            </a>
-        </div>
-        <div>
-            <a class="dropdown-item admin-btn py-3 w-100 mb-3" href="{% url 'cliente_instrumentos' %}">
-                <i class="bi bi-journal-text"></i> Ver Instrumentos Financieros
-            </a>
-        </div>
-        <div>
-            <a class="dropdown-item admin-btn py-3 w-100 mb-3" href="{% url 'cliente_factores' %}">
-                <i class="bi bi-bar-chart"></i> Ver Factores
-            </a>
+    <div class="auditor-column">
+        <a href="{% url 'cliente_calificaciones' %}">
+            <button class="admin-btn btn-nuam">
+                <i class="bi bi-file-earmark-bar-graph-fill"></i> Mis Calificaciones Tributarias
+            </button>
+        </a>
+
+        <a href="{% url 'ver_instrumentos' %}">
+            <button class="admin-btn btn-nuam">
+                <i class="bi bi-currency-dollar"></i> Ver Instrumentos Financieros
+            </button>
+        </a>
+
+        <a href="{% url 'cliente_factores' %}">
+            <button class="admin-btn btn-nuam">
+                <i class="bi bi-journal-text"></i> Factores de Calificación
+            </button>
+        </a>
+    </div>
+
+    <div class="auditor-column">
+        <div class="dropdown">
+            <button class="admin-btn btn-nuam dropdown-toggle bi bi-chat-left-text-fill py-3 px-4" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                Mis Solicitudes
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li><a class="dropdown-item" href="{% url 'cliente_agregar_solicitud' %}">Creación</a></li>
+                <li><a class="dropdown-item" href="{% url 'cliente_solicitudes' %}">Visualización</a></li>
+            </ul>
         </div>
     </div>
 
     <div id="miCarrusel" class="carousel carousel-fade carrusel-chico" data-bs-ride="carousel" data-bs-interval="5000">
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img src="{% static 'img/carrusel2/1.jpg' %}" class="d-block w-100" alt="">
-        </div>
-        <div class="carousel-item">
-            <img src="{% static 'img/carrusel2/2.jpg' %}" class="d-block w-100" alt="">
-        </div>
-        <div class="carousel-item">
-            <img src="{% static 'img/carrusel2/3.png' %}" class="d-block w-100" alt="">
-        </div>
-        <div class="carousel-item">
-            <img src="{% static 'img/carrusel2/4.png' %}" class="d-block w-100" alt="">
-        </div>
-        <div class="carousel-item">
-            <img src="{% static 'img/carrusel2/5.png' %}" class="d-block w-100" alt="">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{% static 'img/carrusel2/1.jpg' %}" class="d-block w-100" alt="">
+            </div>
+            <div class="carousel-item">
+                <img src="{% static 'img/carrusel2/2.jpg' %}" class="d-block w-100" alt="">
+            </div>
+            <div class="carousel-item">
+                <img src="{% static 'img/carrusel2/3.png' %}" class="d-block w-100" alt="">
+            </div>
+            <div class="carousel-item">
+                <img src="{% static 'img/carrusel2/4.png' %}" class="d-block w-100" alt="">
+            </div>
+            <div class="carousel-item">
+                <img src="{% static 'img/carrusel2/5.png' %}" class="d-block w-100" alt="">
+            </div>
         </div>
     </div>
-</div>
 
 </div>
 {% endblock content %}

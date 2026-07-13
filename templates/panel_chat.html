@@ -122,14 +122,14 @@
 
         <!-- formulario de envio -->
         {% if chat %}
-        <form method="POST"
+        <form id="form_enviar_mensaje" method="POST"
               action="{% url 'enviar_mensaje_privado' chat.id %}"
               class="d-flex align-items-center gap-2 p-2 border-top bg-white"
               style="flex-shrink:0;">
 
             {% csrf_token %}
 
-            <input type="text" name="mensaje" class="form-control" placeholder="Escribe un mensaje" required>
+            <input type="text" name="mensaje" class="form-control" placeholder="Escribe un mensaje" required autocomplete="off">
 
             <button type="submit" class="btn btn-primary">
                 <i class="bi bi-send"></i>
@@ -144,12 +144,121 @@
 </div>
 
 <script>
+let fetchInterval = null;
+const activeChatId = "{% if chat %}{{ chat.id }}{% endif %}";
+const currentUserId = {% if request.user.is_authenticated %}{{ request.user.id }}{% else %}null{% endif %};
+
 function cerrarChat(){
     const panel = document.getElementById("panelConversacion");
     if(panel){
         panel.remove();  // elimina solo el chat, no el offcanvas
     }
+    if (fetchInterval) {
+        clearInterval(fetchInterval);
+        fetchInterval = null;
+    }
 }
+
+function fetchMessages() {
+    if (!activeChatId || !currentUserId) return;
+    
+    fetch(`/chat/api/mensajes/${activeChatId}/`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.mensajes) {
+                updateChatHistory(data.mensajes);
+            }
+        })
+        .catch(err => console.error("Error fetching messages:", err));
+}
+
+function updateChatHistory(mensajes) {
+    const container = document.getElementById("historial_chat");
+    if (!container) return;
+    
+    let html = "";
+    if (mensajes.length === 0) {
+        html = '<p class="text-muted text-center">Inicia una conversación</p>';
+    } else {
+        mensajes.forEach(m => {
+            const isMe = m.usuario_id === currentUserId;
+            const textEndClass = isMe ? "text-end" : "";
+            const justifyClass = isMe ? "justify-content-end" : "";
+            const bgBgColor = isMe ? "#E3F0FF" : "#F2ECF9";
+            
+            html += `
+            <div class="mb-3">
+                <div class="text-center text-muted small mb-1">${m.fecha}</div>
+                <div class="${textEndClass}">
+                    <strong>${m.usuario_nombre}</strong>
+                </div>
+                <div class="d-flex ${justifyClass}">
+                    <div style="max-width:70%; background:${bgBgColor}; padding:10px; border-radius:15px; font-size:14px;">
+                        ${m.mensaje}
+                        <div class="text-end text-muted mt-1" style="font-size:11px;">${m.hora}</div>
+                    </div>
+                </div>
+            </div>`;
+        });
+    }
+    
+    // Check if scroll was at the bottom
+    const isAtBottom = container.scrollHeight - container.clientHeight <= container.scrollTop + 50;
+    
+    container.innerHTML = html;
+    
+    if (isAtBottom) {
+        container.scrollTop = container.scrollHeight;
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    {% if abrir_chat %}
+        var off = document.getElementById('chatCanvas');
+        if (off) {
+            try {
+                var bsOff = bootstrap.Offcanvas.getOrCreateInstance(off);
+                bsOff.show();
+            } catch(e) { /* no importa */ }
+        }
+    {% endif %}
+
+    const chatForm = document.getElementById("form_enviar_mensaje");
+    if (chatForm) {
+        chatForm.addEventListener("submit", function(e) {
+            e.preventDefault();
+            const input = chatForm.querySelector("input[name='mensaje']");
+            const text = input.value.trim();
+            if (!text) return;
+            
+            const formData = new FormData(chatForm);
+            
+            fetch(chatForm.action, {
+                method: "POST",
+                body: formData,
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest"
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                input.value = ""; // Clear input immediately
+                fetchMessages();  // Fetch history immediately
+            })
+            .catch(err => console.error("Error sending message:", err));
+        });
+    }
+    
+    const container = document.getElementById("historial_chat");
+    if (container) {
+        container.scrollTop = container.scrollHeight;
+    }
+
+    if (activeChatId && currentUserId) {
+        // Poll every 2 seconds
+        fetchInterval = setInterval(fetchMessages, 2000);
+    }
+});
 </script>
 
 <style>
@@ -161,57 +270,13 @@ function cerrarChat(){
 }
 </style>
 
-<!-- permite abrir y cerrar el offcanvas dependiendo si se envia mensaje o se clickea a un contacto -->
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    {% if abrir_chat %}
-        var off = document.getElementById('chatCanvas'); // o id de tu offcanvas
-        if (off) {
-            try {
-                var bsOff = bootstrap.Offcanvas.getOrCreateInstance(off);
-                bsOff.show();
-            } catch(e) { /* no importa */ }
-        }
-    {% endif %}
-    
-    // Auto-scroll inicial del chat al abrir
-    const chatDiv = document.getElementById("historial_chat");
-    if (chatDiv) {
-        chatDiv.scrollTop = chatDiv.scrollHeight;
-    }
-});
-</script>
 
-{% if destino %}
-<script>
-    // Polling automático para el chat
-    let chatInterval = setInterval(function() {
-        const panel = document.getElementById("panelConversacion");
-        if (!panel) {
-            clearInterval(chatInterval);
-            return;
-        }
-        
-        let fetchUrl = window.location.pathname + "?user_id={{ destino.id }}";
-        fetch(fetchUrl)
-            .then(response => response.text())
-            .then(html => {
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, "text/html");
-                const newHistorial = doc.getElementById("historial_chat");
-                const currentHistorial = document.getElementById("historial_chat");
-                
-                if (newHistorial && currentHistorial) {
-                    if (currentHistorial.innerHTML !== newHistorial.innerHTML) {
-                        let isScrolledToBottom = currentHistorial.scrollHeight - currentHistorial.clientHeight <= currentHistorial.scrollTop + 10;
-                        currentHistorial.innerHTML = newHistorial.innerHTML;
-                        if (isScrolledToBottom) {
-                            currentHistorial.scrollTop = currentHistorial.scrollHeight;
-                        }
-                    }
-                }
-            })
-            .catch(err => console.error("Error actualizando chat:", err));
-    }, 3000);
-</script>
-{% endif %}
+
+
+
+
+
+
+
+
+

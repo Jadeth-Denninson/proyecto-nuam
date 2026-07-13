@@ -1,0 +1,46 @@
+{% extends "../base.html" %}
+{% load static %}
+
+{% block title %}Crear Solicitud de Estado{% endblock title %}
+
+{% block content %}
+<div class="container mt-4 text-white">
+
+    <h3 class="font-title mb-4">Nueva Solicitud de Estado</h3>
+
+    <form method="POST" class="row g-3 mb-4">
+        {% csrf_token %}
+
+        <div class="col-md-6">
+            <label for="calificacion" class="form-label">Calificación Tributaria Asociada</label>
+            <select name="calificacion" id="calificacion" class="form-select bg-dark text-white border-secondary" required>
+                <option value="">Seleccione una calificación...</option>
+                {% for cal in calificaciones %}
+                    <option value="{{ cal.secuencia_evento }}">{{ cal.descripcion }} ({{ cal.secuencia_evento }}) - Estado: {{ cal.estado }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-md-6">
+            <label for="group" class="form-label">Enviar a:</label>
+            <select name="group" id="group" class="form-select bg-dark text-white border-secondary" required>
+                {% for g in grupos %}
+                    <option value="{{ g.id }}">{{ g.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-md-12">
+            <label for="motivo" class="form-label">Motivo / Mensaje</label>
+            <textarea name="motivo" id="motivo" rows="4" class="form-control bg-dark text-white border-secondary" placeholder="Describa el motivo de su solicitud aquí..." required></textarea>
+        </div>
+
+        <div class="col-md-12 d-flex justify-content-end gap-2 mt-3">
+            <button type="submit" class="btn btn-primary btn-sm">
+                <i class="bi bi-save"></i> ENVIAR
+            </button>
+            <a href="{% url 'cliente_solicitudes' %}" class="btn btn-secondary btn-sm">CANCELAR</a>
+        </div>
+    </form>
+</div>
+{% endblock content %}

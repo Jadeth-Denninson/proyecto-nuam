@@ -1,0 +1,59 @@
+{% extends "../base.html" %}
+{% load static %}
+
+{% block title %}Mis Solicitudes{% endblock title %}
+
+{% block content %}
+<div class="container mt-4 text-white">
+    <h3 class="font-title mb-4">Mis Solicitudes</h3>
+
+    <table class="table table-hover">
+        <thead class="table-primary">
+            <tr>
+                <th>ID</th>
+                <th>Calificación Asociada</th>
+                <th>Destinatario (Rol)</th>
+                <th>Motivo</th>
+                <th>Fecha</th>
+                <th>Estado Calificación</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        {% for solicitud in solicitudes %}
+            <tr>
+                <td>{{ solicitud.solicitud_id }}</td>
+                <td>
+                    {% if solicitud.calificacion %}
+                        {{ solicitud.calificacion.descripcion }} ({{ solicitud.calificacion.secuencia_evento }})
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+                <td>{{ solicitud.group.name }}</td>
+                <td>{{ solicitud.motivo }}</td>
+                <td>{{ solicitud.fecha }}</td>
+                <td>
+                    {% if solicitud.calificacion %}
+                        <span class="badge {% if solicitud.calificacion.estado == 'VALIDADA' %}bg-success{% elif solicitud.calificacion.estado == 'PENDIENTE' %}bg-warning text-dark{% else %}bg-danger{% endif %}">
+                            {{ solicitud.calificacion.estado }}
+                        </span>
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="6">No tienes solicitudes creadas.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="col-md-12 d-flex justify-content-end gap-2 mt-3">
+        <a href="{% url 'cliente_agregar_solicitud' %}" class="btn btn-primary btn-sm"><i class="bi bi-plus-circle"></i> CREAR SOLICITUD</a>
+        <a href="{% url 'intranet' %}" class="btn btn-secondary btn-sm">VOLVER</a>
+    </div>
+</div>
+{% endblock content %}

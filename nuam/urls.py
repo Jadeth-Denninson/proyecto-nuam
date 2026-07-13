@@ -27,11 +27,6 @@ urlpatterns = [
     path('intranet/admin/', intr.admin, name="admin"),
     path('intranet/corredor/', intr.corredor, name="corredor"),
     path('intranet/auditor/', intr.auditor, name="auditor"),
-    path('intranet/cliente/', intr.cliente_dashboard, name="cliente_dashboard"),
-    path('cliente/calificaciones/', intr.cliente_calificaciones, name="cliente_calificaciones"),
-    path('cliente/instrumentos/', intr.cliente_instrumentos, name="cliente_instrumentos"),
-    path('cliente/factores/', intr.cliente_factores, name="cliente_factores"),
-    path('cliente/solicitudes/crear/', intr.cliente_agregar_solicitud, name='cliente_agregar_solicitud'),
     path('solicitudes/', intr.gestion_solicitudes, name='gestion_solicitudes'),
     path('solicitudes/crear/', intr.agregar_solicitud, name='agregar_solicitud'),
     path('solicitudes/editar/<int:solicitud_id>', intr.editar_solicitud, name='editar_solicitud'),
@@ -60,5 +55,11 @@ urlpatterns = [
     path('chat/contactos/', intr.lista_contactos, name='lista_contactos'),
     path('chat/historial/<int:user_id>/', intr.historial_mensaje_privado, name='historial_mensaje_privado'),
     path('chat/enviar/<int:chat_id>/', intr.enviar_mensaje_privado, name='enviar_mensaje_privado'),
+    path('intranet/cliente/', intr.cliente_view, name="cliente_view"),
+    path('cliente/calificaciones/', intr.cliente_calificaciones, name='cliente_calificaciones'),
+    path('cliente/solicitudes/', intr.cliente_solicitudes, name='cliente_solicitudes'),
+    path('cliente/solicitudes/crear/', intr.cliente_agregar_solicitud, name='cliente_agregar_solicitud'),
+    path('cliente/factores/', intr.cliente_factores, name='cliente_factores'),
+    path('chat/api/mensajes/<int:chat_id>/', intr.obtener_mensajes_ajax, name='obtener_mensajes_ajax'),
 ]
 

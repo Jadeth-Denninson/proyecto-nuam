@@ -63,20 +63,6 @@ def registrar_auditoria(usuario, accion, descripcion="", instancia_antes= None, 
         valores_despues=despues
     )
     
-    # Registro del evento CRUD a Azure Cosmos DB
-    from .cosmos_logger import log_event_to_cosmos
-    log_event_to_cosmos(
-        evento=accion,
-        usuario=usuario.email if usuario else "Sistema",
-        detalles={
-            "tabla": tabla,
-            "registro_id": str(registro_id),
-            "descripcion": descripcion,
-            "valores_antes": antes,
-            "valores_despues": despues
-        }
-    )
-    
 def update_or_create_with_auditoria(
     usuario,
     model_class,

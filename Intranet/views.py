@@ -35,10 +35,6 @@ def VW_login(request):
       return redirect("auditor")
     elif request.user.groups.filter(name="Corredor").exists():
       return redirect("corredor")
-    elif request.user.groups.filter(name="Cliente").exists():
-      return redirect("cliente_dashboard")
-    elif request.user.groups.filter(name="Bolsa").exists():
-      return redirect("bolsa")
     else:
       # Usuario logueado pero sin rol válido
       # Podrías redirigir a una página neutral o mostrar error
@@ -61,24 +57,12 @@ def VW_login(request):
         return render(request, "Intranets/login.html", {"form": form, "error": error})
 
       login(request, user)
-      
-      # Registrar inicio de sesión en Azure Cosmos DB
-      try:
-          from .cosmos_logger import log_event_to_cosmos
-          log_event_to_cosmos("INICIO_SESION", user.email, {"ip": request.META.get('REMOTE_ADDR')})
-      except Exception:
-          pass
-
       if user.groups.filter(name="Administrador").exists() or user.is_superuser:
         return redirect("admin")
       elif user.groups.filter(name="Auditor").exists():
         return redirect("auditor")
       elif user.groups.filter(name="Corredor").exists():
         return redirect("corredor")
-      elif user.groups.filter(name="Cliente").exists():
-        return redirect("cliente_dashboard")
-      elif user.groups.filter(name="Bolsa").exists():
-        return redirect("bolsa")
       else:
         error = "Rol Corrupto o No Válido"
   else:
@@ -94,25 +78,18 @@ def VW_intranet(request):
         "Corredor": "corredor",
         "Administrador": "admin",
         "Bolsa": "bolsa",
-        "Cliente": "cliente_dashboard"
+        "Cliente": "cliente_view"
     }
 
     grupo = request.user.groups.first()
-    return redirect(redirecciones.get(grupo.name, "login"))
+    if grupo:
+        return redirect(redirecciones.get(grupo.name, "login"))
+    return redirect("login")
 
 @login_required()
 
 def VW_logout(request):
-  usuario_email = request.user.email
   logout(request)
-  
-  # Registrar cierre de sesión en Azure Cosmos DB
-  try:
-      from .cosmos_logger import log_event_to_cosmos
-      log_event_to_cosmos("CIERRE_SESION", usuario_email, {"ip": request.META.get('REMOTE_ADDR')})
-  except Exception:
-      pass
-
   return redirect('login')
 
 #def VW_login(request): # OG Function
@@ -286,42 +263,6 @@ def corredor(request):
 
   return render(request, "Intranets/corredor.html", {"contactos": contactos,"chat": chat,"mensajes": mensajes,"destino": destino,"abrir_chat": abrir_chat})
 
-@login_required()
-@role_required(["Cliente"])
-def cliente_dashboard(request):
-  contactos = lista_contactos(request)
-  buscar = request.GET.get("buscar")
-  if buscar:
-      contactos = contactos.filter(email__icontains=buscar)
-
-  chat = None
-  abrir_chat = False
-  mensajes = None
-  destino = None
-  user_id = request.POST.get("user_id") or request.GET.get("user_id")
-  
-  if user_id:
-    try:
-        destino = User.objects.get(id=user_id)
-        chat = chat_privado.objects.filter(
-            usuario1=request.user,
-            usuario2=destino
-        ).first() or chat_privado.objects.filter(
-            usuario1=destino,
-            usuario2=request.user
-        ).first()
-        if not chat:
-            chat = chat_privado.objects.create(
-                usuario1=request.user,
-                usuario2=destino
-            )
-        mensajes = mensaje_privado.objects.filter(chat=chat).order_by("fecha_envio")
-        abrir_chat = True
-    except User.DoesNotExist:
-        pass
-
-  return render(request, "Intranets/cliente.html", {"contactos": contactos,"chat": chat,"mensajes": mensajes,"destino": destino,"abrir_chat": abrir_chat})
-
 ###### CALIFICACIONES
 
 @login_required()
@@ -404,27 +345,6 @@ def crear_calificacion(request):
               "categorias_niveladas": categorias_niveladas,
               "factores_sueltos": factores_sueltos_data,
           })
-      else:
-        print("FORM VALIDATION ERRORS:", form.errors)
-        valores_dict = {}
-        for f in factor_calificacion.objects.all():
-          raw = request.POST.get(f"factor{f.factor_id}", "")
-          try:
-            valores_dict[f.factor_id] = float(raw) if raw != "" else 0.0
-          except ValueError:
-            valores_dict[f.factor_id] = 0.0
-
-        categorias_niveladas = build_categorias_niveladas(valores_dict)
-        factores_sueltos_data = [
-            {"obj": f, "valor": valores_dict.get(f.factor_id, 0.0)}
-            for f in factores_sueltos
-        ]
-
-        return render(request, "Creates/calificaciones.html", {
-            "form_calificacion": form,
-            "categorias_niveladas": categorias_niveladas,
-            "factores_sueltos": factores_sueltos_data,
-        })
 
     # GET normal
     return render(request, 'Creates/calificaciones.html', {
@@ -436,7 +356,7 @@ def crear_calificacion(request):
     })
 
 @login_required()
-@role_required(["Administrador", "Corredor", "Auditor"])
+@role_required(["Administrador", "Corredor"])
 def ver_calificaciones(request):
     calificaciones = calificacion_tributaria.objects.prefetch_related('califica_set__factor')
 
@@ -463,27 +383,6 @@ def ver_calificaciones(request):
         })
 
     return render(request, "Readers/calificaciones.html", {
-        "calificaciones": datos,
-        "factores": factores,
-        "factores_id": id_factores
-    })
-
-@login_required()
-@role_required(["Cliente"])
-def cliente_calificaciones(request):
-    calificaciones = calificacion_tributaria.objects.filter(cliente=request.user).prefetch_related('califica_set__factor')
-
-    factores = factor_calificacion.objects.all().order_by("factor_id")
-    id_factores = [factor.factor_id for factor in factores]
-    datos = []
-    for cal in calificaciones:
-        valores = [c.valor for c in cal.califica_set.all().order_by("factor__factor_id")]
-        datos.append({
-            "obj": cal,      
-            "valores": valores 
-        })
-
-    return render(request, "Readers/cliente_calificaciones.html", {
         "calificaciones": datos,
         "factores": factores,
         "factores_id": id_factores
@@ -861,7 +760,8 @@ def validar_calificacion(request):
 ###### INSTRUMENTOS
 
 @login_required()
-@role_required(["Administrador", "Auditor"])
+@login_required()
+@role_required(["Administrador", "Auditor", "Cliente"])
 def ver_instrumentos(request):
     instrumentos = instrumento_financiero.objects.all()
 
@@ -898,33 +798,6 @@ def ver_instrumentos(request):
 
 
     return render(request, 'Readers/instrumentos.html', {'form': form,'instrumentos':instrumentos})
-
-@login_required()
-@role_required(["Cliente"])
-def cliente_instrumentos(request):
-    instrumentos = instrumento_financiero.objects.all()
-    return render(request, 'Readers/cliente_instrumentos.html', {'instrumentos': instrumentos})
-
-@login_required()
-@role_required(["Cliente"])
-def cliente_factores(request):
-    factores = factor_calificacion.objects.all().order_by("factor_id")
-    return render(request, 'Readers/cliente_factores.html', {'factores': factores})
-
-@login_required()
-@role_required(["Cliente"])
-def cliente_agregar_solicitud(request):
-    if request.method == "POST":
-        form = formSolicitudCliente(request.user, request.POST)
-        if form.is_valid():
-            nueva_solicitud = form.save(commit=False)
-            nueva_solicitud.usuario = request.user
-            nueva_solicitud.group = request.user.groups.first()
-            nueva_solicitud.save()
-            return redirect('cliente_dashboard')
-    else:
-        form = formSolicitudCliente(cliente=request.user)
-    return render(request, 'Creates/solicitud_cliente.html', {'form': form})
 
 @login_required()
 @role_required(["Administrador", "Auditor"])
@@ -1031,7 +904,7 @@ def crear_usuario(request):
         
     usuario = User.objects.create_user(email=correo, password=password1, first_name=nombre, last_name=apellido)
     registrar_auditoria(request.user, instancia_despues=usuario, accion="CREAR", descripcion="Ingreso de Usuario")
-    grupo, created = Group.objects.get_or_create(name=rol.capitalize())
+    grupo, _ = Group.objects.get_or_create(name=rol.capitalize())
     usuario.groups.add(grupo)
     alert = f'Usuario creado correctamente.'
   return render(request, 'Creates/usuarios.html', {'alert': alert})
@@ -1072,7 +945,7 @@ def modificar_usuario(request, user_id):
     if contraseña:
       usuario.set_password(contraseña)
     usuario.groups.clear()
-    grupo, created = Group.objects.get_or_create(name=rol.capitalize())
+    grupo, _ = Group.objects.get_or_create(name=rol.capitalize())
     usuario.groups.add(grupo)
     usuario.save()
     despues = usuario
@@ -1320,6 +1193,9 @@ def historial_mensaje_privado(request, user_id):    # usa user_id porque es el n
     if request.user.groups.filter(name="Corredor").exists():
         return redirect(f"/intranet/corredor/?user_id={user_id}")
 
+    if request.user.groups.filter(name="Cliente").exists():
+        return redirect(f"/intranet/cliente/?user_id={user_id}")
+
     # redirije al intranet para que no se caiga
     return redirect("intranet")
   
@@ -1363,11 +1239,18 @@ def enviar_mensaje_privado(request, chat_id):     # lo esta tomando del nombre d
     #return redirect(f"/chat/historial/{destino_id}/")  # forma simple de derigir cuando hay parametros como el id seria = f"/url/{parametro}/"
     # forma mas profesional pero que no han pasado =  from django.urls import reverse ; return redirect(reverse("historial_mensaje_privado", kwargs={"user_id": destino_id}))
 
+    # responder por AJAX si es una solicitud asíncrona
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        from django.http import JsonResponse
+        return JsonResponse({"status": "success"})
+
     # redirigir a la vista acorde al rol y se anexa a  ?user_id=destino_id
     if request.user.groups.filter(name="Administrador").exists():
         return redirect(f"/intranet/admin/?user_id={destino_id}")
     elif request.user.groups.filter(name="Auditor").exists():
         return redirect(f"/intranet/auditor/?user_id={destino_id}")
+    elif request.user.groups.filter(name="Cliente").exists():
+        return redirect(f"/intranet/cliente/?user_id={destino_id}")
     else:
         return redirect(f"/intranet/corredor/?user_id={destino_id}")
 
@@ -1455,3 +1338,146 @@ def validar_calificaciones(request):
         "estado": estado,
         "texto": texto,
     })
+
+from django.shortcuts import get_object_or_404
+from django.contrib import messages
+from django.http import JsonResponse
+
+@login_required()
+@role_required(["Cliente"])
+def cliente_view(request):
+  contactos = lista_contactos(request)
+  buscar = request.GET.get("buscar")
+  if buscar:
+      contactos = contactos.filter(email__icontains=buscar)
+
+  chat = None
+  abrir_chat = False
+  mensajes = None
+  destino = None
+  user_id = request.POST.get("user_id") or request.GET.get("user_id")
+  
+  if user_id:
+    try:
+        destino = User.objects.get(id=user_id)
+        chat = chat_privado.objects.filter(
+            usuario1=request.user,
+            usuario2=destino
+        ).first() or chat_privado.objects.filter(
+            usuario1=destino,
+            usuario2=request.user
+        ).first()
+        if not chat:
+            chat = chat_privado.objects.create(
+                usuario1=request.user,
+                usuario2=destino
+            )
+        mensajes = mensaje_privado.objects.filter(chat=chat).order_by("fecha_envio")
+        abrir_chat = True
+    except User.DoesNotExist:
+        pass
+
+  return render(request, "Intranets/cliente.html", {
+      "contactos": contactos,
+      "chat": chat,
+      "mensajes": mensajes,
+      "destino": destino,
+      "abrir_chat": abrir_chat
+  })
+
+@login_required()
+@role_required(["Cliente"])
+def cliente_calificaciones(request):
+    calificaciones = calificacion_tributaria.objects.filter(cliente=request.user).prefetch_related('califica_set__factor')
+
+    factores = factor_calificacion.objects.all().order_by("factor_id")
+    id_factores = [factor.factor_id for factor in factores]
+    datos = []
+    for cal in calificaciones:
+        valores = [c.valor for c in cal.califica_set.all().order_by("factor__factor_id")]
+        datos.append({
+            "obj": cal,      
+            "valores": valores 
+        })
+
+    return render(request, "Readers/cliente_calificaciones.html", {
+        "calificaciones": datos,
+        "factores": factores,
+        "factores_id": id_factores
+    })
+
+@login_required()
+@role_required(["Cliente"])
+def cliente_solicitudes(request):
+    solicitudes = solicitud.objects.filter(usuario=request.user)
+    return render(request, 'Readers/cliente_solicitudes.html', {
+        'solicitudes': solicitudes
+    })
+
+@login_required()
+@role_required(["Cliente"])
+def cliente_agregar_solicitud(request):
+    calificaciones = calificacion_tributaria.objects.filter(cliente=request.user)
+    grupos = Group.objects.filter(name__in=["Administrador", "Auditor"])
+
+    if request.method == "POST":
+        calificacion_id = request.POST.get("calificacion")
+        group_id = request.POST.get("group")
+        motivo = request.POST.get("motivo")
+
+        if not calificacion_id or not group_id or not motivo:
+            messages.error(request, "Debe completar todos los campos.")
+            return redirect("cliente_agregar_solicitud")
+
+        calificacion_obj = get_object_or_404(calificacion_tributaria, secuencia_evento=calificacion_id, cliente=request.user)
+        grupo_destino = get_object_or_404(Group, id=group_id)
+
+        sol = solicitud.objects.create(
+            usuario=request.user,
+            group=grupo_destino,
+            calificacion=calificacion_obj,
+            motivo=motivo
+        )
+        
+        # Registrar auditoría de creación de solicitud
+        registrar_auditoria(request.user, instancia_despues=sol, accion="CREAR", descripcion=f"Cliente crea solicitud de estado para calificacion {calificacion_id}")
+        
+        messages.success(request, "Solicitud de estado enviada correctamente.")
+        return redirect("cliente_solicitudes")
+
+    return render(request, "Creates/cliente_solicitud.html", {
+        "calificaciones": calificaciones,
+        "grupos": grupos
+    })
+
+@login_required()
+@role_required(["Cliente"])
+def cliente_factores(request):
+    factores = factor_calificacion.objects.all().order_by("factor_id")
+    return render(request, "Readers/cliente_factores.html", {
+        "factores": factores
+    })
+
+@login_required()
+def obtener_mensajes_ajax(request, chat_id):
+    try:
+        chat = chat_privado.objects.get(id=chat_id)
+    except chat_privado.DoesNotExist:
+        return JsonResponse({"error": "Chat no encontrado"}, status=404)
+
+    if request.user.id not in [chat.usuario1.id, chat.usuario2.id]:
+        return JsonResponse({"error": "No autorizado"}, status=403)
+
+    mensajes = mensaje_privado.objects.filter(chat=chat).order_by("fecha_envio")
+    lista = []
+    for m in mensajes:
+        lista.append({
+            "id": m.id,
+            "usuario_id": m.usuario.id,
+            "usuario_nombre": m.usuario.first_name or m.usuario.email,
+            "mensaje": m.mensaje,
+            "fecha": m.fecha_envio.strftime("%d/%m/%Y"),
+            "hora": m.fecha_envio.strftime("%H:%M")
+        })
+
+    return JsonResponse({"mensajes": lista})
