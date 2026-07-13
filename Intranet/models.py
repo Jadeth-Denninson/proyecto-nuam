@@ -46,9 +46,9 @@ class solicitud(models.Model):
     solicitud_id = models.AutoField(primary_key=True)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     group = models.ForeignKey(Group, on_delete=models.CASCADE)
-    calificacion = models.ForeignKey('calificacion_tributaria', on_delete=models.CASCADE, null=True, blank=True, related_name='solicitudes')
     motivo = models.TextField()
     fecha = models.DateField(auto_now_add=True, null=True, blank=True)
+    calificacion = models.ForeignKey('calificacion_tributaria', on_delete=models.CASCADE, null=True, blank=True)
 
     def str(self):
         return f"Solicitud {self.solicitud_id} de {self.usuario.username}"
@@ -107,7 +107,6 @@ class factor_calificacion(models.Model):
     factor_id = models.AutoField(primary_key=True, default=8)
     nombre_factor = models.CharField(max_length=120)
     categoria = models.ForeignKey(categoria_factor, null=True, on_delete=models.CASCADE)
-    descripcion = models.TextField(null=True, blank=True, default='')
     def __str__(self):
         return self.nombre_factor
 
@@ -142,7 +141,6 @@ class calificacion_tributaria(models.Model):
 
     mercado = models.CharField(max_length=50, choices=MERCADOS)
     instrumento = models.ForeignKey(instrumento_financiero, on_delete=models.CASCADE)
-    cliente = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='calificaciones_tributarias')
     descripcion = models.CharField(max_length=150)
     fecha_pago = models.DateField()
     dividendo = models.IntegerField(null=True, blank=True)
@@ -157,6 +155,7 @@ class calificacion_tributaria(models.Model):
     evento_capital = models.IntegerField(null=True, blank=True)
 
     factores = models.ManyToManyField(factor_calificacion, through='califica')
+    cliente = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='calificaciones_cliente')
 
     def __str__(self):
         return f"Calificación {self.secuencia_evento} — {self.descripcion}"
