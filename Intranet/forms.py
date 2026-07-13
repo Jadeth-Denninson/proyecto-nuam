@@ -1,9 +1,5 @@
 from django import forms
-from .models import User, calificacion_tributaria, instrumento_financiero, factor_calificacion, solicitud
-
-clientes = User.objects.filter(
-    groups__name="Cliente"
-)
+from .models import *
 
 # LOGIN
 class LoginForm(forms.Form):
@@ -21,22 +17,18 @@ class CalificacionTributariaForm(forms.ModelForm):
     class Meta:
         model = calificacion_tributaria
         fields = [
-            'cliente', 'mercado', 'instrumento', 'descripcion', 'fecha_pago',
+            'mercado', 'instrumento', 'descripcion', 'fecha_pago',
             'secuencia_evento', 'dividendo', 'valor_historico',
             'anio', 'isfut'
         ]
         widgets = {
-            'cliente': forms.Select(attrs={
-                'class': 'form-select',
-                'id': 'cliente'
-            }),
             'mercado': forms.Select(attrs={
-                'class': 'form-select',
+                'class': 'form-control',
                 'id': 'mercado',
                 'name': 'mercado',
             }),
             'instrumento': forms.Select(attrs={
-                'class': 'form-select',
+                'class': 'form-control',
                 'id': 'instrumento',
                 'name': 'instrumento',
             }),
@@ -84,10 +76,6 @@ class CalificacionTributariaForm(forms.ModelForm):
                 'min': "1970",
                 'max': "2200",
                 'required': True
-            }),
-            'isfut': forms.CheckboxInput(attrs={
-                'class': 'form-check-input',
-                'id': 'isfut'
             })
         }
 
@@ -109,20 +97,6 @@ class CalificacionTributariaForm(forms.ModelForm):
         #    <option>Mercado Internacional</option>
         #    <option>Mercado Bancario-Créditos</option>
         #</select>
-        
-        self.fields['cliente'].queryset = clientes.order_by(
-                'first_name',
-                'last_name',
-                'email'
-            )
-
-        self.fields['cliente'].label_from_instance = (
-            lambda obj: (
-                f"{obj.first_name} {obj.last_name} ({obj.email})"
-                if obj.first_name or obj.last_name
-                else obj.email
-                )   
-            )
 
         # Agregar campos dinámicos para los factores desde la BD
         for f in factor_calificacion.objects.all():

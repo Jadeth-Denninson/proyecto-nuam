@@ -1,7 +1,8 @@
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from django.contrib.auth import get_user_model
-from .models import solicitud, notification
+from django.contrib.auth.models import Group
+from .models import *
 
 User = get_user_model()
 

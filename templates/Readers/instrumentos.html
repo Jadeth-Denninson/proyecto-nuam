@@ -68,8 +68,8 @@
             </div>
 
             <div class="col-md-1 d-flex flex-column gap-2">
-                <button type="submit" name="buscar" class="btn btn-sm btn-primary mt-3" style="width:80px; height:32px; font-size:0.8rem; text-align: center; line-height: 20px !important; background-color: #ff4201 !important;">BUSCAR</button>
-                <button type="reset" class="btn btn-sm btn-primary" style="width:80px; height:32px; font-size:0.8rem; text-align: center; line-height: 25px !important; background-color: #ff4201 !important;">LIMPIAR</button>
+                <button type="submit" name="buscar" class="btn btn-sm btn-primary mt-3" style="background-color: var(--nuam-primary); border: none;">BUSCAR</button>
+                <button type="reset" class="btn btn-sm btn-primary">LIMPIAR</button>
             </div>
         </div>
     </form>
@@ -133,8 +133,8 @@
         <div class="d-flex justify-content-end mt-3 gap-3">
             <!--<button type="submit" name="ingresar" class="btn btn-success" style="background-color: var(--nuam-primary); border: none;">INGRESAR</button>-->
             <!--<a href="../Creates/instrumentos.html" class="btn btn-sm btn-primary">Agregar Instrumento</a>-->
-            <a href="{% url 'agregar_instrumento' %}" class="btn btn-primary justify-content-end" style="width:180px; height:40px; font-size:0.8rem; text-align: center; line-height: 25px !important; background-color: #ff4201 !important;">AGREGAR INSTRUMENTO</a>
-            <a href="{% url 'intranet' %}" class="btn btn-secondary justify-content-end" style="width:100px; height:40px; font-size:0.8rem; text-align: center; line-height: 25px !important; background-color: gray !important;">VOLVER</a>
+            <a href="{% url 'agregar_instrumento' %}" class="btn btn-primary justify-content-end">Agregar Instrumento</a>
+            <a href="{% url 'intranet' %}" class="btn btn-secondary justify-content-end">Volver</a>
         </div>
     </form>
 </div>   

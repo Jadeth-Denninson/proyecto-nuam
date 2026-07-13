@@ -405,22 +405,34 @@ def crear_calificacion(request):
               "factores_sueltos": factores_sueltos_data,
           })
       else:
-        print("=== FORMULARIO INVÁLIDO ===")
-        print("Errores de validación:", form.errors)
-    else:
-      form = CalificacionTributariaForm()
+        print("FORM VALIDATION ERRORS:", form.errors)
+        valores_dict = {}
+        for f in factor_calificacion.objects.all():
+          raw = request.POST.get(f"factor{f.factor_id}", "")
+          try:
+            valores_dict[f.factor_id] = float(raw) if raw != "" else 0.0
+          except ValueError:
+            valores_dict[f.factor_id] = 0.0
 
-    print("=== CREAR CALIFICACION ===")
-    print("METODO:", request.method)
-    print("POST:", request.POST)
+        categorias_niveladas = build_categorias_niveladas(valores_dict)
+        factores_sueltos_data = [
+            {"obj": f, "valor": valores_dict.get(f.factor_id, 0.0)}
+            for f in factores_sueltos
+        ]
 
-    # Para GET o cuando el formulario POST es inválido
+        return render(request, "Creates/calificaciones.html", {
+            "form_calificacion": form,
+            "categorias_niveladas": categorias_niveladas,
+            "factores_sueltos": factores_sueltos_data,
+        })
+
+    # GET normal
     return render(request, 'Creates/calificaciones.html', {
-        "form_calificacion": form,
+        "form_calificacion": CalificacionTributariaForm(),
         "categorias_niveladas": categorias_niveladas,
         "factores_sueltos": [
-            {"obj": f, "valor": 0} for f in factores_sueltos
-        ],
+        {"obj": f, "valor": 0} for f in factores_sueltos
+    ],
     })
 
 @login_required()

@@ -48,10 +48,10 @@
         </div>
 
         <div class="col-md-12 d-flex justify-content-end gap-2">
-            <button type="submit" class="btn btn-primary btn-sm" style="width:100px; height:40px; font-size:0.8rem; text-align: center; line-height: 25px !important; background-color: #ff4201 !important;">
-                {% if usuario %}<i style="width:140px; height:40px; font-size:0.8rem; text-align: center; line-height: 30px !important; background-color: #ff4201 !important;"></i> ACTUALIZAR{% else %}<i class="bi bi-person-plus"></i> CREAR{% endif %}
+            <button type="submit" class="btn btn-primary btn-sm">
+                {% if usuario %}<i class="bi bi-pencil-square"></i> ACTUALIZAR{% else %}<i class="bi bi-person-plus"></i> CREAR{% endif %}
             </button>
-            <a href="{% url 'administracion_usuarios' %}" class="btn btn-secondary btn-sm" style="width:100px; height:40px; font-size:0.8rem; text-align: center; line-height: 30px !important; background-color: gray !important;">CANCELAR</a>
+            <a href="{% url 'administracion_usuarios' %}" class="btn btn-secondary btn-sm">CANCELAR</a>
         </div>
     </form>
 

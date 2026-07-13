@@ -11,7 +11,7 @@
     <!-- FILTROS -->
     <form method="GET" class="row g-3 mb-4">
         <div class="col-md-4">
-            <label class="form-label text-white" >Buscar</label>
+            <label class="form-label text-white">Buscar</label>
             <input type="text" class="form-control text-white bg-dark border-secondary"
                    name="texto" placeholder="Buscar…" value="{{ texto }}">
         </div>
@@ -29,8 +29,8 @@
 
         <div class="col-md-4 d-flex align-items-end gap-2">
             <br>
-            <button type="submit" class="admin-btn" style="width:90px; height:40px; font-size:0.8rem; text-align: center; line-height: 15px !important; background-color: #ff4201 !important;">BUSCAR</button>
-            <a href="" class="admin-btn" style="width:90px; height:40px; font-size:0.8rem; text-align: center; line-height: 15px !important; background-color: #ff4201 !important;">LIMPIAR</a>
+            <button type="submit" class="admin-btn" style="width:100px; height:40px; font-size:0.8rem !important; background-color: grey !important;">BUSCAR</button>
+            <a href="" class="admin-btn" style="width:100px; height:40px; font-size:0.8rem !important; background-color: blue !important;">LIMPIAR</a>
         </div>
     </form>
 
@@ -74,19 +74,19 @@
         <div class="d-flex justify-content-end gap-2 my-3">
             <button name="accion" value="VALIDADA"
                     class="admin-btn"
-                    style="width:90px; height:40px; font-size:0.8rem; text-align: center; line-height: 25px !important; background-color: green !important;">
+                    style="width:120px; height:40px; font-size:0.8rem !important; background-color: green !important;">
                 VALIDAR
             </button>
 
             <button name="accion" value="RECHAZADA"
                     class="admin-btn"
-                    style="width:100px; height:40px; font-size:0.8rem; text-align: center; line-height: 25px !important; background-color: red !important;">
+                    style="width:120px; height:40px; font-size:0.8rem !important; background-color: red !important;">
                 RECHAZAR
             </button>
 
             <a href="{% url 'intranet' %}">
                 <button type="button" class="admin-btn"
-                        style="width:80px; height:40px; font-size:0.8rem; text-align: center; line-height: 25px !important; background-color: gray !important;">
+                        style="width:100px; height:40px; font-size:0.8rem !important; background-color: grey !important;">
                     VOLVER
                 </button>
             </a>

@@ -1,4 +1,4 @@
-from .models import Auditoria, categoria_factor, factor_calificacion, User
+from .models import *
 from django.forms.models import model_to_dict
 from datetime import date, datetime
 from decimal import Decimal

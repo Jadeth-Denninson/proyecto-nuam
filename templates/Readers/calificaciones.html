@@ -45,8 +45,8 @@
 
     <div class="col-md-3 d-flex align-items-end">
       <div class="col-md-12 d-flex gap-2">
-        <button type="submit" class="btn btn-primary" style="width:100px; height:40px; font-size:0.8rem; text-align: center; line-height: 25px !important; background-color: #ff4201 !important;">BUSCAR</button>
-        <button type="reset" class="btn btn-primary" style="width:100px; height:40px; font-size:0.8rem; text-align: center; line-height: 25px !important; background-color: #ff4201 !important;">LIMPIAR</button>
+        <button type="submit" class="btn btn-primary">BUSCAR</button>
+        <button type="reset" class="btn btn-primary">LIMPIAR</button>
       </div>
     </div>
   </form>
@@ -106,22 +106,22 @@
   </div>
 
   <div class="gap-2 my-3">
-    <a href="{% url 'crear_calificacion' %}"><button class="btn btn-primary"><i class="bi bi-plus-circle" style="width:100px; height:38px; font-size:0.8rem; text-align: center; line-height: 25px !important; background-color: #ff4201 !important;"></i> INGRESAR</button></a>
+    <a href="{% url 'crear_calificacion' %}"><button class="btn btn-primary"><i class="bi bi-plus-circle"></i> INGRESAR</button></a>
     <button type="button" class="btn btn-sm btn-primary" onclick="editarSeleccionado()">
-      <i class="bi bi-pencil-square" style="width:100px; height:40px; font-size:0.8rem; text-align: center; line-height: 25px !important; background-color: #ff4201 !important;"></i> MODIFICAR
+      <i class="bi bi-pencil-square"></i> MODIFICAR
     </button>
 
     <button type="button" class="btn btn-sm btn-primary" onclick="eliminarSeleccionado()">
-      <i class="bi bi-trash" style="width:100px; height:40px; font-size:0.8rem; text-align: center; line-height: 25px !important; background-color: #ff4201 !important;"></i> ELIMINAR
+      <i class="bi bi-trash"></i> ELIMINAR
     </button>
 
-    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="width:140px; height:40px; font-size:0.8rem; text-align: center; line-height: 25px !important; background-color: gray !important;">CARGAR ARCHIVO</button>
+    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Cargar archivo</button>
     <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="{% url 'carga_monto' %}">Cargar por monto</a></li>
-      <li><a class="dropdown-item" href="{% url 'carga_factor' %}">Cargar por factor</a></li>
+      <li><a class="dropdown-item" href="{% url 'carga_monto' %}">Cargar X monto</a></li>
+      <li><a class="dropdown-item" href="{% url 'carga_factor' %}">Cargar X factor</a></li>
       
     </ul>
-    <a href="{% url 'intranet' %}"><button class="btn btn btn-secondary mt-3 float-end" style="width:100px; height:40px; font-size:0.8rem; text-align: center; line-height: 25px !important; background-color: gray !important;">VOLVER</button></a>
+    <a href="{% url 'intranet' %}"><button class="btn btn btn-secondary mt-3 float-end">Volver</button></a>
   </div>
   
 </div>
