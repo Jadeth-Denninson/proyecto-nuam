@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-mhpu96_s20nq4vpehhqrb*f-b=*59q-%yf%ju8v87p04*4h6wx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -81,11 +81,20 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'nuamdb',
-        'USER': 'root',
-        'PASSWORD': ''
+        'USER': 'admin',
+        'PASSWORD': 'Inacap.2026', 
+        'HOST': 'nuam-database.c6xljfguqnwo.us-east-1.rds.amazonaws.com',
+        'PORT': '3306',
     }
 }
 
+COSMOS_ENDPOINT = "https://nuam-proyecto.documents.azure.com:443/"
+
+COSMOS_KEY = "nuamjson" 
+
+COSMOS_DATABASE = "Nuam-Cosmos"
+
+COSMOS_CONTAINER = "Container1"
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
