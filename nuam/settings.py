@@ -139,4 +139,4 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'Intranet.User'
-LOGIN_URL = 'http://127.0.0.1:8000/login/?required=forbidden'
+LOGIN_URL = '/login/?required=forbidden'
